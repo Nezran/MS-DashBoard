@@ -11,10 +11,13 @@ module.exports = {
     },
     module: {
       loaders: [
-          { test: /\.js$/, exclude:/node_modules/, loaders: ["babel-loader", "eslint-loader"] },
+          { test: /\.js$/, exclude:/node_modules/, loaders: ["babel-loader"] },
           { test: /\.s?css$/, exclude:/node_modules/, loaders: ["style-loader", "css-loader", "sass-loader"] },
           { }
       ]
+    },
+    devServer: {
+        historyApiFallback: true
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -24,3 +27,4 @@ module.exports = {
         }),
     ],
 };
+// avec eslint airbnb         { test: /\.js$/, exclude:/node_modules/, loaders: ["babel-loader", "eslint-loader"] },
