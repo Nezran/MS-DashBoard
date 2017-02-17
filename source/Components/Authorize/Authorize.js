@@ -14,8 +14,8 @@ class AuthorizeComponent extends React.Component {
         const { routes } = this.props; // array of routes
         const { router } = this.context;
 
-        // check if user data available
-        const user = JSON.parse(localStorage.getItem('user'));
+        // check if User data available
+        const user = JSON.parse(localStorage.getItem('User'));
 
         if (!user) {
             // redirect to login if not
@@ -29,9 +29,9 @@ class AuthorizeComponent extends React.Component {
             .flattenDeep()
             .value();
 
-        // compare routes with user data
-        //a changer par comparer user.role avec les routesRoles
-        // if (_.intersection(routeRoles, user.roles).length === 0) {
+        // compare routes with User data
+        //a changer par comparer User.role avec les routesRoles
+        // if (_.intersection(routeRoles, User.roles).length === 0) {
         //     router.push('/not-authorized');
         // }
     }

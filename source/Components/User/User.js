@@ -1,11 +1,11 @@
 import React from 'react';
 
-export default  class Dashboard extends React.Component{
+export default  class User extends React.Component {
     render() {
         return (
             <div className="home-page">
-                {console.log(this.props.params)}
-                <h1>Dashboard</h1>
+                <h1>Accounts</h1>
+                <Link to={`/accountsManagement`}>le lien</Link>
                 <p>
                     While the <a href="https://css-tricks.com/learning-react-router/">CSS-Tricks article</a> for
                     this guide covers an explanation of <strong>React Router</strong>, there

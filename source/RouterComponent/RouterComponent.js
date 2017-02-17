@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Route, IndexRoute, History } from 'react-router';
+import {Router, Route, IndexRoute, History} from 'react-router';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 import Dashboard from './../Components/Dashboard/Dashboard';
 import Accounts from './../Components/Accounts/Accounts';
@@ -14,12 +14,13 @@ export default class RouterComponent extends React.Component {
     render() {
         return (
             <Router history={createBrowserHistory()}>
-               <Route path="/" component={Dashboard} />
-               <Route path="/projects" component={Dashboard} />
-               <Route path="/projectsManagement" authorizedRoles={['projectManager']} component={Dashboard} />
-               <Route path="/accountsManagement" authorizedRoles={['admin']} component={Accounts} />
-               <Route path="/login" component={Login} />
-               <Route path="*" component={PageNotFound} />
+                <Route path="/" component={Dashboard}/>
+                <Route path="/project" component={Dashboard}/>
+                <Route path="/projects" component={Dashboard}/>
+                <Route path="/projectsManagement" authorizedRoles={['projectManager']} component={Dashboard}/>
+                <Route path="/accountsManagement" authorizedRoles={['admin']} component={Accounts}/>
+                <Route path="/login" component={Login}/>
+                <Route path="*" component={PageNotFound}/>
             </Router>
         );
     }
