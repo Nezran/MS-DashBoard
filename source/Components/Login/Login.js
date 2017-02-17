@@ -1,12 +1,11 @@
 import React from 'react';
 import { Router, Route, Link, browserHistory } from 'react-router'
-import AuthorizeComponent from '../Authorize/Authorize';
 
-export default  class Accounts extends AuthorizeComponent {
+export default  class Login extends React.Component{
     render() {
         return (
             <div className="home-page">
-                <h1>Accounts</h1>
+                <h1>Login</h1>
                 <Link to={`/accountsManagement`}>le lien</Link>
                 <p>
                     While the <a href="https://css-tricks.com/learning-react-router/">CSS-Tricks article</a> for
