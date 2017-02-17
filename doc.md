@@ -1,0 +1,8 @@
+- App = point d'entré
+    - Router = définition des routes et des roles autorisés à y accéder
+- Authorize = Test si l'utilisateur est connecté et a le droit d'accéder à la page demandée
+- Dashboard = page d'accueil et de visualisation des projets
+- Account = page de gestion des accounts
+    - Extend of Authorize
+- Project = management des projects
+    - Extend of Authorize
