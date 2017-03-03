@@ -1,24 +1,99 @@
 import React from 'react';
-import { Router, Route, Link, browserHistory } from 'react-router'
+import { Router, Route, Link, browserHistory  } from 'react-router'
+import Axios from 'axios';
+import { TextField, RaisedButton }from 'material-ui';
+import Jwt from 'jwt-decode';
+import _ from 'lodash';
+import AuthorizeComponent from '../Authorize/Authorize';
+import Auth from '../Auth/Auth';
 
-export default  class Login extends React.Component{
+export default  class Login extends AuthorizeComponent{
+    constructor(props){
+        super(props);
+
+    }
+    state = {
+        username: '',
+        password: '',
+        messageLogin: '',
+        messageError: '',
+    }
+
+    componentDidMount(){
+
+        Axios.get('http://localhost:23000/api/projects')
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+    handleSubmit = (e) => {
+        e.preventDefault();
+        Auth.postUser(document.getElementsByName('username')[0].value, document.getElementsByName('password')[0].value);
+        this.props.router.push('/');
+        // this.setState({username:document.getElementsByName('username')[0].value, password: document.getElementsByName('password')[0].value}, (e) =>{
+        //     // this.postUser();
+        //     Auth();
+        // });
+    }
+    // postUser = () => {
+    //     Axios.post('http://localhost:23000/api/auth', {
+    //         username: this.state.username,
+    //         password: this.state.password
+    //     })
+    //     .then(function (response) {
+    //
+    //         console.log(response);
+    //
+    //         if(response.status == 200){
+    //             this.setState({messageError: ''});
+    //             console.log(Jwt(response.data));
+    //
+    //             const dataUser = Jwt(response.data);
+    //             _.mapKeys(dataUser, (value,key) =>{
+    //                 localStorage.setItem(key,value);
+    //             });
+    //             localStorage.setItem("token",response.data);
+    //             console.log("props",this.props);
+    //             this.props.router.push('/');
+    //         }
+    //     }.bind(this))
+    //     .catch(function (error) {
+    //         console.log(error);
+    //         this.setState({messageError:'Connection pas réussi'});
+    //     }.bind(this));
+    // }
     render() {
         return (
             <div className="home-page">
                 <h1>Login</h1>
-                <Link to={`/accountsManagement`}>le lien</Link>
-                <p>
-                    While the <a href="https://css-tricks.com/learning-react-router/">CSS-Tricks article</a> for
-                    this guide covers an explanation of <strong>React Router</strong>, there
-                    are still many implementation details in this code that the article
-                    doesn't cover. For a better understanding of those details, see
-                    the <a href="https://github.com/bradwestfall/CSS-Tricks-React-Series">Github documentation</a> for
-                    this guide.
-                </p>
-                <p>
-                    As far as the [Search Title] and [Total Results] that you'll see on the results page,
-                    those are static for now. We will make them dynamic in the third guide.
-                </p>
+                <form onSubmit={this.handleSubmit}>
+                    <TextField
+                        ref="username"
+                        name="username"
+                        hintText="Username"
+                        errorText={this.state.messageError}
+                    />
+                    <br/>
+                    <TextField
+                        name="password"
+                        hintText="Password"
+                        type="password"
+                        errorText={this.state.messageError}
+                    />
+                    <br/>
+                    <RaisedButton
+                        label="Se connecter"
+                        labelPosition="before"
+                        primary={true}
+                        type="submit"
+                    />
+                </form>
+
+                {/*<Link to="/accountsManagement">le lien</Link>*/}
+
             </div>
         );
     }

@@ -10,17 +10,31 @@ class AuthorizeComponent extends React.Component {
         router: PropTypes.object.isRequired
     };
 
+    GoToHome = () => {
+      router.push("/");
+    };
+
+    logOut = () =>{
+        localStorage.clear();
+    }
+
     componentWillMount() {
         const { routes } = this.props; // array of routes
         const { router } = this.context;
 
-        // check if User data available
-        const user = JSON.parse(localStorage.getItem('User'));
+        //console.dir(routes);
 
-        if (!user) {
-            // redirect to login if not
-            router.push('/login');
-        }
+
+        // check if User data available
+        const token = localStorage.getItem('token');
+
+
+
+        // if(routes[0].path == "login" && token){
+        //     router.push('/');
+        // }
+
+        //console.log(routes[0].path,router);
 
         // get all roles available for this route
         const routeRoles = _.chain(routes)
@@ -29,11 +43,47 @@ class AuthorizeComponent extends React.Component {
             .flattenDeep()
             .value();
 
+        // const isGuest  = _.chain(routes)
+        //     .filter(item => item.guest) // access to custom attribute
+        //     .flattenDeep()
+        //     .value();
+
+        //console.log("ios",isGuest[0].guest);
+        console.log(routeRoles);
+
+        if(routeRoles){
+
+            if (!token) {
+                // redirect to login if not
+                localStorage.setItem("role","guest");
+                router.push('/login');
+            }
+
+            if(_.indexOf(routeRoles, localStorage.getItem("role")) === -1) {
+                router.push('/noAccess');
+            }
+
+        }
+
+        // if (!token) {
+        //     // redirect to login if not
+        //     localStorage.setItem("role","guest");
+        //     router.push('/login');
+        // } else if(routeRoles){
+        //     if(_.indexOf(routeRoles, localStorage.getItem("role")) === -1) {
+        //         router.push('/noAccess');
+        //         console.log("false");
+        //     }
+        // } else{
+        //     console.log("true");
+        // }
+
+
+        //console.log(routeRoles);
         // compare routes with User data
         //a changer par comparer User.role avec les routesRoles
-        // if (_.intersection(routeRoles, User.roles).length === 0) {
-        //     router.push('/not-authorized');
-        // }
+
+
     }
 }
 
