@@ -3,8 +3,6 @@ import Axios from 'axios';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import {green700, red500} from 'material-ui/styles/colors';
 import Chip from 'material-ui/Chip';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-injectTapEventPlugin();
 
 export default  class Dashboard extends React.Component{
     constructor(props) {
@@ -27,7 +25,20 @@ export default  class Dashboard extends React.Component{
     }
 
     formatDeadline(deadline) {
-        return deadline;
+        return new Date(deadline).toLocaleDateString();
+    }
+
+    setStatusChip(project, style) {
+
+        if(project.status == "Open") {
+            return <Chip backgroundColor={green700} style={style}>
+                En cours
+            </Chip>;
+        } else {
+           return <Chip backgroundColor={red500} style={style}>
+                Terminé
+            </Chip>;
+        }
     }
 
     render() {
@@ -43,24 +54,14 @@ export default  class Dashboard extends React.Component{
             },
             card: {
                 width: 500,
-                marginLeft: 4,
-                marginRight: 4,
+                margin: 4,
+            },
+            icons: {
+                marginRight: 24,
             }
         };
 
         if(hasData) {
-            let statusChip = null;
-
-            if(this.state.projects[0].status == "Open") {
-                statusChip = <Chip backgroundColor={green700} style={styles.chip}>
-                        En cours
-                    </Chip>;
-            } else {
-                statusChip = <Chip backgroundColor={red500} style={styles.chip}>
-                    Terminé
-                </Chip>;
-            }
-
             return (
                 <div className="home-page">
                     <h1>Dashboard</h1>
@@ -69,13 +70,13 @@ export default  class Dashboard extends React.Component{
                             return <Card key={project.id} style={styles.card}>
                                 <CardHeader
                                     title={project.title}
-                                    subtitle={this.formatDeadline(project.deadline)}
+                                    subtitle={'Fin le ' + this.formatDeadline(project.deadline)}
                                     actAsExpander={true}
                                     showExpandableButton={true}
                                 />
                                 <CardActions>
                                 <span style={styles.wrapper}>
-                                    {statusChip}
+                                    {this.setStatusChip(project, styles.chip)}
                                     {project.tags.map(function(tag) {
                                         return <Chip key={tag} style={styles.chip}>
                                             {tag}
@@ -84,8 +85,9 @@ export default  class Dashboard extends React.Component{
                                 </span>
                                 </CardActions>
                                 <CardText expandable={true}>
-                                    Description : {project.description} <br />
+                                    Responsable: {project.projectManager.lastname} {project.projectManager.firstname} <br />
                                     Participants : {project.nbWorker} <br />
+                                    Description :  {project.description} <br />
                                 </CardText>
                             </Card>
                         })}
