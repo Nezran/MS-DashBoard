@@ -9,6 +9,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import AuthorizeComponent from '../Authorize/Authorize';
 import { Router, Route, Link, browserHistory } from 'react-router'
+import _ from 'lodash';
 
 require('./wrapper.css');
 import Auth from '../Auth/Auth';
@@ -20,30 +21,53 @@ import {
 
 export default class Wrapper extends AuthorizeComponent {
 
+    constructor(props) {
+        super(props);
+
+    }
     componentWillMount(){
-        console.log("children",this.props.children);
+        // console.log("children",this.props.children);
         // this.setState({logged: Auth.isAuth()});
+        // console.log(Auth);
+
+        // console.log("props",this.props.route.isLogged)
+
+        console.log(this.props.children);
     }
     static muiName = 'FlatButton';
 
-    state = {
-        logged: Auth.isAuth(),
+    // state = {
+    //     logged: this.props.route.isLogged,
+    // };
+
+    state ={
+        logged : localStorage.getItem('token') ? true : false,
     };
 
-    handleChange = (event, logged) => {
+    handleChange = (logged) => {
+        console.log(logged);
         this.setState({logged: logged});
     };
 
-    handleSignOut(){
-        // localStorage.clear();
-        Auth.logout();
+    handleSignOut = () =>{
 
-        console.log("logout",this.props);
+
+        // console.log(this.props);
+        //this.props.route.handler(true);
+        // localStorage.clear();
+
+        // console.dir(Auth.logout());
+        const func = this.handleChange;
+        Auth.logout(func);
+
+
+        //console.log("logout",this.props);
         // this.props.router.push('/');
 
     }
 
     render() {
+
         const Logged = (props) => (
             <div>
                 <IconMenu
@@ -56,13 +80,15 @@ export default class Wrapper extends AuthorizeComponent {
                 >
                     <MenuItem primaryText="Refresh" />
                     <MenuItem primaryText="Help" />
-                    <MenuItem primaryText="Sign out" />
+                    <MenuItem primaryText="Sign out"  onClick={this.handleSignOut}/>
 
                 </IconMenu>
+
                 <FlatButton  label="Sign out" onClick={this.handleSignOut} />
                 <FlatButton>
                     <Link to={`/`}>Accueil</Link>
                 </FlatButton>
+                <FlatButton label="Default" />
                 <FlatButton>
                     <Link to={`/accountsManagement`}>Gestion de compte</Link>
                 </FlatButton>
@@ -83,18 +109,74 @@ export default class Wrapper extends AuthorizeComponent {
              );
         };
         Logged.muiName = 'IconMenu';
-        console.log("wrapper",this.props)
+        console.log("wrapper",this.props);
+        const func = this.handleChange;
+        const childWithProps = React.Children.map(this.props.children, child => {
+            return React.cloneElement(child, {
+                    handleLogged: func,
+                });
+            }
+        );
+        const childmenu = this.props.route.childRoutes.map(child => {
+
+            console.log("child", child.name)
+            console.log("authorize",child.authorizedRoles);
+            console.log("retour ",_.indexOf(child.authorizedRoles, localStorage.getItem("role")) >= 0);
+
+            if(child.name){
+                if(child.authorizedRoles){
+                    if((_.indexOf(child.authorizedRoles, localStorage.getItem("role")) >= 0)){
+                        return (
+                            <FlatButton
+                                label={child.name}
+                                href={child.path}
+                            />
+                        )
+                    }
+                }else{
+                    return (
+                        <FlatButton
+                            label={child.name}
+                            href={child.path}
+                        />
+                    )
+                }
+            }
+        });
+
+
+
+        if(Auth.isAuth()){
+            childmenu.push(<FlatButton  label="Se déconnecter" onClick={this.handleSignOut} />);
+        }
+
+        childmenu.muiName = 'IconMenu';
+
+
         return (
             <div>
-                {console.log("authW",this.state.logged)}
+                {console.log(Router)}
+                <header className="header">
+                    <FlatButton
+                        label="MS DashBoard"
+                        href={`/`}
+                    />
+                    <div className="menuLink">
 
-                <AppBar
-                    title={<Link to={`/`}>MS DashBoard</Link>}
-                    iconElementLeft={<IconButton><NavigationClose /></IconButton>}
-                    iconElementRight={this.state.logged ? <Logged /> : <Login />}
-                />
+                        {childmenu}
+                    </div>
+                </header>
+
+                {console.log("authW",this.state.logged)}
+                {/*<AppBar*/}
+                    {/*title={<Link to={`/`}>MS DashBoard</Link>}*/}
+                    {/*iconElementLeft={<IconButton><NavigationClose /></IconButton>}*/}
+                {/*/>*/}
+                {/*// iconElementRight={this.state.logged ? <Logged /> : <Login />}*/}
                 <div className="content">
-                    {this.props.children}
+
+                    {childWithProps}
+
                 </div>
             </div>
         );

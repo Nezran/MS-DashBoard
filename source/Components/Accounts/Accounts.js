@@ -4,6 +4,9 @@ import AuthorizeComponent from '../Authorize/Authorize';
 
 export default  class Accounts extends AuthorizeComponent {
     render() {
+        const iconStyles = {
+            marginRight: 24,
+        };
         return (
             <div className="home-page">
                 <h1>Accounts</h1>
@@ -20,6 +23,7 @@ export default  class Accounts extends AuthorizeComponent {
                     As far as the [Search Title] and [Total Results] that you'll see on the results page,
                     those are static for now. We will make them dynamic in the third guide.
                 </p>
+
             </div>
         );
     }

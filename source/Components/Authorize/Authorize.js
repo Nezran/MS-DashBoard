@@ -18,8 +18,26 @@ class AuthorizeComponent extends React.Component {
         localStorage.clear();
     }
 
+    authorizeBool = (routeRoles) => {
+        return _.indexOf(routeRoles, localStorage.getItem("role")) === -1
+    }
+
+    routeRoles = (routes) => {
+        const routeRoles = _.chain(routes)
+            .filter(item => item.authorizedRoles) // access to custom attribute
+            .map(item => item.authorizedRoles)
+            .flattenDeep()
+            .value();
+        return routeRoles;
+    }
+
+    routesAuthorize = () => {
+
+    }
+
     componentWillMount() {
         const { routes } = this.props; // array of routes
+        console.log("r",routes);
         const { router } = this.context;
 
         //console.dir(routes);
@@ -37,11 +55,11 @@ class AuthorizeComponent extends React.Component {
         //console.log(routes[0].path,router);
 
         // get all roles available for this route
-        const routeRoles = _.chain(routes)
-            .filter(item => item.authorizedRoles) // access to custom attribute
-            .map(item => item.authorizedRoles)
-            .flattenDeep()
-            .value();
+        // const routeRoles = _.chain(routes)
+        //     .filter(item => item.authorizedRoles) // access to custom attribute
+        //     .map(item => item.authorizedRoles)
+        //     .flattenDeep()
+        //     .value();
 
         // const isGuest  = _.chain(routes)
         //     .filter(item => item.guest) // access to custom attribute
@@ -49,19 +67,22 @@ class AuthorizeComponent extends React.Component {
         //     .value();
 
         //console.log("ios",isGuest[0].guest);
-        console.log(routeRoles);
+        // console.log("rR",routeRoles);
 
-        if(routeRoles){
+        if(this.routeRoles(routes)){
 
             if (!token) {
                 // redirect to login if not
                 localStorage.setItem("role","guest");
+
                 router.push('/login');
             }
 
-            if(_.indexOf(routeRoles, localStorage.getItem("role")) === -1) {
+            if(this.authorizeBool(this.routeRoles(routes))) {
                 router.push('/noAccess');
             }
+
+
 
         }
 

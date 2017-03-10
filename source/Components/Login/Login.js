@@ -11,6 +11,7 @@ export default  class Login extends AuthorizeComponent{
     constructor(props){
         super(props);
 
+        console.log("log",this.props);
     }
     state = {
         username: '',
@@ -20,7 +21,6 @@ export default  class Login extends AuthorizeComponent{
     }
 
     componentDidMount(){
-
         Axios.get('http://localhost:23000/api/projects')
             .then(function (response) {
                 console.log(response);
@@ -31,7 +31,11 @@ export default  class Login extends AuthorizeComponent{
     }
     handleSubmit = (e) => {
         e.preventDefault();
-        Auth.postUser(document.getElementsByName('username')[0].value, document.getElementsByName('password')[0].value);
+        Auth.postUser(
+            document.getElementsByName('username')[0].value,
+            document.getElementsByName('password')[0].value,
+            this.props.handleLogged
+        );
         this.props.router.push('/');
         // this.setState({username:document.getElementsByName('username')[0].value, password: document.getElementsByName('password')[0].value}, (e) =>{
         //     // this.postUser();
