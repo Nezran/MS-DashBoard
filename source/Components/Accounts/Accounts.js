@@ -1,8 +1,24 @@
 import React from 'react';
 import { Router, Route, Link, browserHistory } from 'react-router'
 import AuthorizeComponent from '../Authorize/Authorize';
+import Axios from 'axios';
 
 export default  class Accounts extends AuthorizeComponent {
+    componentWillMount() {
+        Axios.defaults.baseURL = 'http://localhost:23000/api';
+        Axios.get('/users')
+            .then(function (response) {
+                self.setState({
+                    users: response.data
+                })
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+    state={
+      users: [],
+    };
     render() {
         const iconStyles = {
             marginRight: 24,
