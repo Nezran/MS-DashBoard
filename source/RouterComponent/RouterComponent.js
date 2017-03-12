@@ -7,6 +7,7 @@ import Login from './../Components/Login/Login';
 import PageNotFound from './../Components/PageNotFound/PageNotFound';
 import NotAuthorized from './../Components/NotAuthorized/NotAuthorized';
 import Wrapper from './../Components/Wrapper/Wrapper';
+import Index from '../Components/Index/Index';
 
 import {}  from 'material-ui/svg-icons/device/airplanemode-active';
 
@@ -16,16 +17,16 @@ export default class RouterComponent extends React.Component {
         super(props);
 
     }
-
-
-
     render() {
         return (
             <div>
                 {/*<Wrapper/>*/}
                 <Router history={createBrowserHistory()} >
+
                     <Route path="/" component={Wrapper}  >
-                        {/*<Route path="/" component={Dashboard}/>*/}
+                        <Route path="/" component={Index}/>
+                        <Route path="/index" component={Index} name="Index"/>
+
                         <Route path="/project" component={Dashboard} name="Projet"/>
                         <Route path="/projects" component={Dashboard} name="Projets"/>
                         <Route path="/projectsManagement" authorizedRoles={['Project manager']} component={Dashboard} name="Gérer des projets "/>
