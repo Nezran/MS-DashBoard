@@ -118,11 +118,6 @@ export default class Wrapper extends AuthorizeComponent {
             }
         );
         const childmenu = this.props.route.childRoutes.map(child => {
-
-            console.log("child", child.name)
-            console.log("authorize",child.authorizedRoles);
-            console.log("retour ",_.indexOf(child.authorizedRoles, localStorage.getItem("role")) >= 0);
-
             if(child.name){
                 if(child.authorizedRoles){
                     if((_.indexOf(child.authorizedRoles, localStorage.getItem("role")) >= 0)){

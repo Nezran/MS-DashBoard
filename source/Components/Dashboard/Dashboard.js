@@ -3,25 +3,36 @@ import Axios from 'axios';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import {green700, red500} from 'material-ui/styles/colors';
 import Chip from 'material-ui/Chip';
+import SearchBar from './../SearchBar/SearchBar'
+
 
 export default  class Dashboard extends React.Component{
     constructor(props) {
         super(props);
-        this.state = {projects: ''};
+        this.state = {
+            projects: '',
+            displayedProjects: ''
+        };
     }
 
     componentDidMount(){
-        var self = this;
         Axios.defaults.baseURL = 'http://localhost:23000/api';
         Axios.get('/projects')
-            .then(function (response) {
-                self.setState({
-                    projects: response.data
+            .then(response => {
+                this.setState({
+                    projects: response.data,
+                    displayedProjects: response.data
                 })
             })
-            .catch(function (error) {
+            .catch(error => {
                 console.log(error);
             });
+    }
+
+    displaySearchedProject(projects) {
+        this.setState({
+            displayedProjects: projects
+        })
     }
 
     formatDeadline(deadline) {
@@ -64,13 +75,15 @@ export default  class Dashboard extends React.Component{
         if(hasData) {
             return (
                 <div className="home-page">
+                    <SearchBar projects={this.state.projects} displaySearchedProject={this.displaySearchedProject.bind(this)}/>
                     <h1>Dashboard</h1>
+                    <h3>{this.state.displayedProjects.length > 0 ? "Il y a " + this.state.displayedProjects.length + " projet(s)" : "Il n'y a aucun projet"}</h3>
                     <span style={styles.wrapper}>
-                        {this.state.projects.map((project) => {
+                        {this.state.displayedProjects.map((project) => {
                             return <Card key={project.id} style={styles.card}>
                                 <CardHeader
                                     title={project.title}
-                                    subtitle={'Fin le ' + this.formatDeadline(project.deadline)}
+                                    subtitle={'Fin le ' + this.formatDeadline(project.endDate)}
                                     actAsExpander={true}
                                     showExpandableButton={true}
                                 />
@@ -85,6 +98,9 @@ export default  class Dashboard extends React.Component{
                                 </span>
                                 </CardActions>
                                 <CardText expandable={true}>
+                                    Date de début : {this.formatDeadline(project.startDate)}<br />
+                                    Prochaine echéance : {this.formatDeadline(project.deadline)}<br />
+                                    Date de fin : {this.formatDeadline(project.endDate)}<br />
                                     Responsable: {project.projectManager.lastname} {project.projectManager.firstname} <br />
                                     Participants : {project.nbWorker} <br />
                                     Description :  {project.description} <br />

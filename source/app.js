@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import RouterComponent from './RouterComponent/RouterComponent';
 
-// import injectTapEventPlugin from 'react-tap-event-plugin';
-// injectTapEventPlugin();
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
 
 /* Material */
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
