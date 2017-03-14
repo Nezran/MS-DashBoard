@@ -1,16 +1,49 @@
 import React from 'react';
 import { Router, Route, Link, browserHistory } from 'react-router'
 import AuthorizeComponent from '../Authorize/Authorize';
+import Axios from 'axios';
+import {Card, CardActions, CardHeader,  CardTitle, CardText} from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
+import CardUserActions from './CardUserActions';
 
 export default  class Accounts extends AuthorizeComponent {
+  componentDidMount() {
+        Axios.defaults.baseURL = 'http://localhost:23000/api';
+        Axios.get('/users')
+            .then((response) => {
+              // console.log(response);
+                this.setState({
+                    users: response.data
+                })
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+
+    }
+
+    state={
+      users: [],
+    };
+
+
+
     render() {
         const iconStyles = {
             marginRight: 24,
         };
+        const cardUser =
+          this.state.users.map(user => {
+            return <CardUserActions {...user}/>;
+        });
+
         return (
             <div className="home-page">
-                <h1>Accounts</h1>
-                <Link to={`/accountsManagement`}>le lien</Link>
+                <h1>Gestion des comptes</h1>0
+              {cardUser}
+
+              {console.log(this.state.users)}
                 <p>
                     While the <a href="https://css-tricks.com/learning-react-router/">CSS-Tricks article</a> for
                     this guide covers an explanation of <strong>React Router</strong>, there

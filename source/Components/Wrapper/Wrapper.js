@@ -8,14 +8,18 @@ import Toggle from 'material-ui/Toggle';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import AuthorizeComponent from '../Authorize/Authorize';
+import Index from '../Index/Index';
 import { Router, Route, Link, browserHistory } from 'react-router'
 import _ from 'lodash';
-
+import {GridList, GridTile} from 'material-ui/GridList';
 require('./wrapper.css');
 import Auth from '../Auth/Auth';
+import Subheader from 'material-ui/Subheader';
+import StarBorder from 'material-ui/svg-icons/toggle/star-border';
+
 
 import {
-    lightBlue50
+    lightBlue50,purple50
 } from 'material-ui/styles/colors';
 
 
@@ -29,6 +33,7 @@ export default class Wrapper extends AuthorizeComponent {
         // console.log("children",this.props.children);
         // this.setState({logged: Auth.isAuth()});
         // console.log(Auth);
+
 
         // console.log("props",this.props.route.isLogged)
 
@@ -57,6 +62,7 @@ export default class Wrapper extends AuthorizeComponent {
         // localStorage.clear();
 
         // console.dir(Auth.logout());
+
         const func = this.handleChange;
         Auth.logout(func);
 
@@ -67,6 +73,26 @@ export default class Wrapper extends AuthorizeComponent {
     }
 
     render() {
+
+
+      const styles = {
+        root: {
+
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'space-around',
+          float: 'left',
+          width: "25%",
+
+
+        },
+        gridList: {
+
+          width: "100%",
+          overflowY: 'auto',
+          float: "left",
+        },
+      };
 
         const Logged = (props) => (
             <div>
@@ -117,6 +143,10 @@ export default class Wrapper extends AuthorizeComponent {
                 });
             }
         );
+      const styleButton = {
+          color: purple50,
+          fontWeight: 100,
+      }
         const childmenu = this.props.route.childRoutes.map(child => {
             if(child.name){
                 if(child.authorizedRoles){
@@ -125,24 +155,42 @@ export default class Wrapper extends AuthorizeComponent {
                             <FlatButton
                                 label={child.name}
                                 href={child.path}
+                                style={styleButton}
                             />
                         )
                     }
                 }else{
+
                     return (
                         <FlatButton
                             label={child.name}
                             href={child.path}
+                            style={styleButton}
+
                         />
                     )
                 }
             }
         });
 
+      const indexComponent = this.props.route.childRoutes.map(child => {
+        if(child.name){
+          if(child.authorizedRoles){
+            if((_.indexOf(child.authorizedRoles, localStorage.getItem("role")) >= 0)){
+              return (<Index {...child}/>)
+            }
+          }else{
+
+            return (
+            ""
+            )
+          }
+        }
+      });
 
 
         if(Auth.isAuth()){
-            childmenu.push(<FlatButton  label="Se déconnecter" onClick={this.handleSignOut} />);
+            childmenu.push(<FlatButton  label="Se déconnecter" onClick={this.handleSignOut}  style={styleButton} />);
         }
 
         childmenu.muiName = 'IconMenu';
@@ -157,11 +205,13 @@ export default class Wrapper extends AuthorizeComponent {
                         href={`/`}
                     />
                     <div className="menuLink">
-
                         {childmenu}
                     </div>
                 </header>
+              {
 
+
+              }
                 {console.log("authW",this.state.logged)}
                 {/*<AppBar*/}
                     {/*title={<Link to={`/`}>MS DashBoard</Link>}*/}
@@ -169,8 +219,7 @@ export default class Wrapper extends AuthorizeComponent {
                 {/*/>*/}
                 {/*// iconElementRight={this.state.logged ? <Logged /> : <Login />}*/}
                 <div className="content">
-
-                    {childWithProps}
+                        {childWithProps}
 
                 </div>
             </div>
