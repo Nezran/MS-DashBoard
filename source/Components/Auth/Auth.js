@@ -33,11 +33,12 @@ export default {
             password: password
         })
             .then(function (response) {
+                console.log(response);
+
                 // console.log(response);
-                if (response.statusField == 200) {
+                if (response.status == 200) {
                     // this.setState({messageError: ''});
                     // console.log(Jwt(response.data));
-
                     const dataUser = Jwt(response.data);
                     _.mapKeys(dataUser, (value, key) => {
                         localStorage.setItem(key, value);

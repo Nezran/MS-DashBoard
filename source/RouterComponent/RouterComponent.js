@@ -8,6 +8,7 @@ import PageNotFound from './../Components/PageNotFound/PageNotFound';
 import NotAuthorized from './../Components/NotAuthorized/NotAuthorized';
 import Wrapper from './../Components/Wrapper/Wrapper';
 import Index from '../Components/Index/Index';
+import TrelloComponent from '../Components/TrelloComponent/TrelloComponent';
 
 import {}  from 'material-ui/svg-icons/device/airplanemode-active';
 
@@ -29,8 +30,9 @@ export default class RouterComponent extends React.Component {
 
                         <Route path="/project" component={Dashboard} name="Projet"/>
                         <Route path="/projects" component={Dashboard} name="Projets"/>
-                        <Route path="/projectsManagement" authorizedRoles={['Project manager']} component={Dashboard} name="Gérer des projets "/>
-                        <Route path="/accountsManagement" authorizedRoles={['admin','Project manager']} component={Accounts} name="Gérer les comptes"/>
+                        <Route path="/trello" component={TrelloComponent} name="Trello"/>
+                        <Route path="/projectsManagement" authorizedRoles={['Project Manager']} component={Dashboard} name="Gérer des projets "/>
+                        <Route path="/accountsManagement" authorizedRoles={['admin','Project Manager']} component={Accounts} name="Gérer les comptes"/>
                         <Route path="/login" component={Login} authorizedRoles={['guest']} handler={this.handleLogged} name="Se connecter" />
                         <Route path="/noAccess" component={NotAuthorized}/>
                         <Route path="*" component={PageNotFound}/>

@@ -3,11 +3,15 @@ import Axios from 'axios';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import {green700, red500} from 'material-ui/styles/colors';
 import Chip from 'material-ui/Chip';
-import SearchBar from './../SearchBar/SearchBar'
-
+import SearchBar from './../SearchBar/SearchBar';
+import TrelloComponent from '../TrelloComponent/TrelloComponent';
 
 export default  class Dashboard extends React.Component{
+
+
     constructor(props) {
+
+        console.log(Trello);
         super(props);
         this.state = {
             projects: '',
@@ -24,10 +28,8 @@ export default  class Dashboard extends React.Component{
                     displayedProjects: response.data
                 })
             })
-            .catch(error => {
-                console.log(error);
-            });
     }
+
 
     displaySearchedProject(projects) {
         this.setState({
@@ -36,6 +38,7 @@ export default  class Dashboard extends React.Component{
     }
 
     formatDeadline(deadline) {
+
         return new Date(deadline).toLocaleDateString();
     }
 
@@ -108,6 +111,9 @@ export default  class Dashboard extends React.Component{
                             </Card>
                         })}
                     </span>
+
+                    <TrelloComponent/>
+
                 </div>
             );
         }

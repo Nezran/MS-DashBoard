@@ -16,6 +16,7 @@ require('./wrapper.css');
 import Auth from '../Auth/Auth';
 import Subheader from 'material-ui/Subheader';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
+import CircularProgress from 'material-ui/CircularProgress';
 
 
 import {
@@ -46,13 +47,20 @@ export default class Wrapper extends AuthorizeComponent {
     // };
 
     state ={
+        loader: false,
         logged : localStorage.getItem('token') ? true : false,
     };
 
     handleChange = (logged) => {
-        console.log(logged);
+        console.log("logged",logged);
         this.setState({logged: logged});
     };
+
+    renderLoader = () => {
+
+        this.setState({loader: this.state.loader ? false : true});
+
+    }
 
     handleSignOut = () =>{
 
@@ -137,9 +145,11 @@ export default class Wrapper extends AuthorizeComponent {
         Logged.muiName = 'IconMenu';
         console.log("wrapper",this.props);
         const func = this.handleChange;
+        const funcLoader = this.renderLoader;
         const childWithProps = React.Children.map(this.props.children, child => {
             return React.cloneElement(child, {
                     handleLogged: func,
+                    handleLoader: funcLoader,
                 });
             }
         );
@@ -153,6 +163,7 @@ export default class Wrapper extends AuthorizeComponent {
                     if((_.indexOf(child.authorizedRoles, localStorage.getItem("role")) >= 0)){
                         return (
                             <FlatButton
+                                key={child.path}
                                 label={child.name}
                                 href={child.path}
                                 style={styleButton}
@@ -198,6 +209,7 @@ export default class Wrapper extends AuthorizeComponent {
 
         return (
             <div>
+
                 {console.log(Router)}
                 <header className="header">
                     <FlatButton
@@ -208,10 +220,18 @@ export default class Wrapper extends AuthorizeComponent {
                         {childmenu}
                     </div>
                 </header>
-              {
+                <a onClick={this.renderLoader}>toggle loader</a>
+
+                {
+                   this.state.loader ?
+                       <div className="loader">
+                           <CircularProgress size={80} thickness={5} />
+                       </div>
+                       :
+                       ""
+                }
 
 
-              }
                 {console.log("authW",this.state.logged)}
                 {/*<AppBar*/}
                     {/*title={<Link to={`/`}>MS DashBoard</Link>}*/}

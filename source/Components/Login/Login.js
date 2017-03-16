@@ -21,13 +21,13 @@ export default  class Login extends AuthorizeComponent{
     }
 
     componentDidMount(){
-        Axios.get('http://localhost:23000/api/projects')
-            .then(function (response) {
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+        // Axios.get('http://localhost:23000/api/projects')
+        //     .then(function (response) {
+        //         console.log(response);
+        //     })
+        //     .catch(function (error) {
+        //         console.log(error);
+        //     });
     }
     handleSubmit = (e) => {
         e.preventDefault();

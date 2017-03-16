@@ -22,3 +22,8 @@ body{
     font-family: roboto;
     font-weight: 300;
 }
+
+.loader{
+    position: absolute;
+    left: 48%;
+}
