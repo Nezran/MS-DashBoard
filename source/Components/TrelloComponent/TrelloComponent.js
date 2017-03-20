@@ -3,12 +3,12 @@
  */
 import React from 'react';
 // import TrelloAPI from'../../trello';
-require('../../trello');
+require('../../Api/trello');
 // var test = require('../../trello');
 import Axios from 'axios';
 import FlatButton from 'material-ui/FlatButton';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
-
+import TrelloBoards from './TrelloBoards';
 
 export default class TrelloComponent extends React.Component{
     defaultState = {
@@ -20,49 +20,39 @@ export default class TrelloComponent extends React.Component{
         trello_connected: false,
         trello_user_data:'',
         trello_boards_id:[],
+        setParent:'',
 
     };
 
     constructor(props) {
-
-        console.log(Trello)
         super(props);
+        this.state = this.defaultState;
+        this.state.setParent = this.props.getTrelloProjects;
 
-        // this.trello = trello;
+        // console.log("props",this.props);
+    }
 
+    componentWillMount(){
         if(localStorage.getItem("trello_token")){
             this.AuthenticateTrello();
         }
-
-        this.state = this.defaultState;
-
     }
 
-    // state={
-    //   trello_token:'',
-    //   trello_user:'',
-    //     trello_response_token:'',
-    //   api_key: 'ff9ada8463a83c083553e753520ffbec',
-    //     trello_boards: [],
-    //     trello_connected: false,
-    //     trello_user_data:'',
-    //     trello_boards_id:[],
-    // };
-
-
-    componentWillMount(){
-
+    setParent(data){
+         this.state.setParent(data);
     }
 
     getTrelloMembers = () => {
-
         Axios.get('https://api.trello.com/1/members/'+this.state.trello_user+'?key='+this.state.api_key+'&token='+this.state.trello_token)
             .then( (response) => {
-                console.log(response);
+                // console.log(response);
                 this.setState({trello_user_data:response.data, trello_boards_id: response.data.idBoards }, (f) => {
                     this.state.trello_boards_id.map((board) => {
                         this.getTrelloBoard(board);
-                    });
+                    }, e => {
+                        this.setParent(this.state.trello_boards);
+                        }
+                    );
                 });
             })
             .catch( (error) => {
@@ -71,26 +61,24 @@ export default class TrelloComponent extends React.Component{
     }
 
     getTrelloBoard = (board) => {
-
-            Axios.get('https://api.trello.com/1/boards/'+board+'?key='+this.state.api_key+'&token='+this.state.trello_token)
+            Axios.get('https://api.trello.com/1/boards/'+board+'?key='+this.state.api_key+'&cards=all&lists=all&token='+this.state.trello_token)
                 .then( (response) => {
                     // return response.data;
                     this.setState({
                         trello_boards: this.state.trello_boards.concat([response.data])
+                    }, e => {
+                        this.setParent(this.state.trello_boards);
                     });
 
                 })
                 .catch( (error) => {
                     console.log(error);
                 });
-
-
     }
 
     AuthenticateTrello = () => {
 
         // console.log(this.state);
-
         Trello.authorize({
             name: "DashBoard Project",
             type: "popup",
@@ -98,7 +86,8 @@ export default class TrelloComponent extends React.Component{
             expiration: "never",
             persist: true,
             success: (e) => {
-                console.log(e,"connect success");
+
+                // console.log(e,"connect success");
 
                 var token = Trello.token();
                 // window.location.replace("/auth?token=" + token);
@@ -123,19 +112,18 @@ export default class TrelloComponent extends React.Component{
 
         Axios.delete('https://api.trello.com/1/tokens/'+this.state.trello_token+'?key=ff9ada8463a83c083553e753520ffbec&token='+this.state.trello_token)
             .then((response) => {
-                // console.log(response);
-                this.setState(this.defaultState);
-                console.log()
-                localStorage.removeItem("trello_token");
-
+                localStorage.removeItem("trello_token","exp");
+                this.setState(this.defaultState, e => {
+                    Trello.deauthorize();
+                    this.setParent([]);
+                });
             })
             .catch((error) => {
                 console.log(error);
             });
 
+
     }
-
-
 
     render(){
         const styles = {
@@ -154,42 +142,28 @@ export default class TrelloComponent extends React.Component{
                 marginRight: 24,
             }
         };
-        const TrelloBoards = this.state.trello_boards.map((board,i) => {
-            // var datas = this.getTrelloBoard(board);
-            // var test = this.getTrelloBoard(board).then( (result) => {
-            //    return result;
-            // });
-            //
-            // console.log(test);
-            return(
-                    <Card key={i} style={styles.card}>
-                        <CardHeader
-                            title={board.name}
-                            subtitle={'Fin le '}
-                            actAsExpander={true}
-                            showExpandableButton={true}
-                        />
-                        <CardText expandable={true}>
-
-                        </CardText>
-                    </Card>
-            );
-
-
-        });
         if(this.state.trello_connected){
             return(
                 <div>
                     <h1>Trello</h1>
-                    {console.log(this.state)}
+
+                    {/*{console.log(Trello)}*/}
+                    {/*{console.log(this.state)}*/}
+
                     <p>
                         Connecté en tant que : {this.state.trello_user_data.username}
                         <img src={"https://trello-avatars.s3.amazonaws.com/"+this.state.trello_user_data.avatarHash+"/30.png"} />
                     </p>
                     <FlatButton  label="Déconnexion" onClick={this.trelloDisconnect} />
-
                     <span style={styles.wrapper}>
-                        {TrelloBoards}
+                        
+                        {
+                            this.state.trello_boards.map((board,i) => {
+                                return <TrelloBoards {...board} key={i} api_key={this.state.api_key} trello_token={this.state.trello_token} />
+                            }, e => {
+                                console.log("finiboard",e);
+                            })
+                        }
                     </span>
                 </div>
             )
@@ -197,31 +171,9 @@ export default class TrelloComponent extends React.Component{
             return(
                 <div>
                     <h1>Trello</h1>
-
                     <FlatButton  label="Connecter avec Trello" onClick={this.AuthenticateTrello} />
-
                 </div>
             )
         }
-        // return(
-        //     <div>
-        //         <h1>TrelloComponent</h1>
-        //
-        //         {console.log(this.state)}
-        //
-        //         {
-        //             this.state.trello_connected ?
-        //                     "Connecté en tant que : "+
-        //                     <p>{this.state.trello_user_data.username}</p>+
-        //                     <img src={"https://trello-avatars.s3.amazonaws.com/"+this.state.trello_user_data.avatarHash+"/170.png"} />
-        //                 :  <FlatButton  label="Connecter avec TrelloComponent" onClick={this.AuthenticateTrello} />
-        //         }
-        //         <span style={styles.wrapper}>
-        //
-        //         {TrelloBoards}
-        //
-        //         </span>
-        //     </div>
-        // )
     }
 }

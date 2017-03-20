@@ -1,3 +1,6 @@
+// Router de l'app
+// Les routes avec les paramètres sont définies ici
+
 import React from 'react';
 import {Router, Route, IndexRoute, History} from 'react-router';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
@@ -22,13 +25,23 @@ export default class RouterComponent extends React.Component {
     render() {
         return (
             <div>
-                {/*<Wrapper/>*/}
-                <Router history={createBrowserHistory()} >
+                {/*
+                - Définition des routes avec
+                 le path : url de la route,
+                 component : composant à appeler,
+                 name : nom de la route pour le menu,
+                 authorizedRoles : gestion des droits,
 
+                 - Le droit guest est pour les visiteur
+
+                 - On fais passer toute les routes dans le wrapper, sont role sera d'afficher le template, la structure visuel,
+                  puis l'état de l'application comme connecté/déconnecté
+
+                */}
+                <Router history={createBrowserHistory()} >
                     <Route path="/" component={Wrapper}  >
                         <Route path="/" component={Index}/>
                         <Route path="/index" component={Index} name="Index"/>
-
                         <Route path="/project" component={Dashboard} name="Projet"/>
                         <Route path="/projects" component={Dashboard} name="Projets"/>
                         <Route path="/trello" component={TrelloComponent} name="Trello"/>

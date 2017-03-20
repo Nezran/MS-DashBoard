@@ -37,7 +37,7 @@ export default class CardUserActions extends React.Component{
       //     return Promise.reject(error);
       // });
 
-    Axios.get('https://randomuser.me/api/?format=json&inc=picture')
+    Axios.get('https://randomuser.me/api/?format=json&inc=picture&lego')
         .then((response) => {
 
           // console.log(response.data.results[0].picture);

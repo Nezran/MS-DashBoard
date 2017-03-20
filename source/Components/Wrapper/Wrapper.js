@@ -174,6 +174,7 @@ export default class Wrapper extends AuthorizeComponent {
 
                     return (
                         <FlatButton
+                            key={child.path}
                             label={child.name}
                             href={child.path}
                             style={styleButton}

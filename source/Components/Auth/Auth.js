@@ -13,12 +13,9 @@ export default {
     logout: (handleLogged) =>{
         localStorage.clear();
         localStorage.setItem("role","guest");
-        // Router.push('/');
-        // console.log(Router);
-
+        browserHistory.push('/projects');
         handleLogged(false);
-        // browserHistory.push("/");
-        // window.location.reload();
+        window.location.reload();
 
     },
     isAuth: () =>{

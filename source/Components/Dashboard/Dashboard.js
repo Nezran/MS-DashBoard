@@ -5,17 +5,17 @@ import {green700, red500} from 'material-ui/styles/colors';
 import Chip from 'material-ui/Chip';
 import SearchBar from './../SearchBar/SearchBar';
 import TrelloComponent from '../TrelloComponent/TrelloComponent';
+import Charts from '../Charts/Charts';
 
 export default  class Dashboard extends React.Component{
 
-
     constructor(props) {
-
         console.log(Trello);
         super(props);
         this.state = {
             projects: '',
-            displayedProjects: ''
+            displayedProjects: '',
+            trelloProjects:[],
         };
     }
 
@@ -33,6 +33,11 @@ export default  class Dashboard extends React.Component{
             });
     }
 
+    getTrelloProjects = (data) => {
+        // console.log("datass",data)
+        this.setState({trelloProjects:data});
+
+    }
 
     displaySearchedProject(projects) {
         this.setState({
@@ -59,7 +64,6 @@ export default  class Dashboard extends React.Component{
 
     render() {
         const hasData = this.state.projects[0] ? true : false;
-
         const styles = {
             chip: {
                 margin: 4,
@@ -82,6 +86,7 @@ export default  class Dashboard extends React.Component{
                 <div className="home-page">
                     <SearchBar projects={this.state.projects} displaySearchedProject={this.displaySearchedProject.bind(this)}/>
                     <h1>Dashboard</h1>
+                    <Charts projects={this.state.projects} trelloProjects={this.state.trelloProjects}/>
                     <h3>{this.state.displayedProjects.length > 0 ? "Il y a " + this.state.displayedProjects.length + " projet(s)" : "Il n'y a aucun projet"}</h3>
                     <span style={styles.wrapper}>
                         {this.state.displayedProjects.map((project) => {
@@ -113,9 +118,7 @@ export default  class Dashboard extends React.Component{
                             </Card>
                         })}
                     </span>
-
-                    <TrelloComponent/>
-
+                    <TrelloComponent getTrelloProjects={this.getTrelloProjects} />
                 </div>
             );
         }
@@ -130,9 +133,5 @@ export default  class Dashboard extends React.Component{
                 </div>
             );
         }
-
-        // return (
-        //     {dashboardContent}
-        // );
     }
 };

@@ -1,3 +1,5 @@
+// Index du projet
+//
 import React from 'react';
 import ReactDOM from 'react-dom';
 import RouterComponent from './RouterComponent/RouterComponent';
@@ -16,6 +18,8 @@ import {
     lightBlueA700, lightBlue50
 } from 'material-ui/styles/colors';
 
+
+// style du template
 const App = function () {
     const muiTheme = getMuiTheme({
         palette: {
@@ -35,7 +39,7 @@ const App = function () {
     });
 
 
-
+    // Point d'entrée de l'application, on passe le router dans le template
     return (
         <div>
             <MuiThemeProvider muiTheme={muiTheme}>
@@ -45,4 +49,5 @@ const App = function () {
     );
 };
 
+// On render l'app
 ReactDOM.render(<App />, document.getElementById('app'));
