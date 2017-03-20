@@ -6,23 +6,24 @@
  * Created by Mickael.LACOMBE on 28.02.2017.
  */
 import Axios from 'axios';
-import { TextField, RaisedButton }from 'material-ui';
-import { Router, Route, Link, browserHistory  } from 'react-router'
+import {TextField, RaisedButton}from 'material-ui';
+import {Router, Route, Link, browserHistory} from 'react-router'
 import mitt from 'mitt'
 import Jwt from 'jwt-decode';
 import _ from 'lodash';
 
 
 export default {
-    createUser: (
-        id,
-        username,
-        firstname,
-        lastname,
-        role,
-        email,
-        password,
-    ) => {
+    ///////////////////////////////////////////////////////
+    // User management
+    //////////////////////////////////////////////////////
+    createUser: (id,
+                 username,
+                 firstname,
+                 lastname,
+                 role,
+                 email,
+                 password,) => {
 
         // console.log(id, username, firstname, lastname);
         // return false;
@@ -43,13 +44,13 @@ export default {
 
             Axios.defaults.headers.common['x-access-token'] = localStorage.getItem("token");
             Axios.post('http://localhost:23000/api/user', {
-                id:id,
-                username:username,
-                firstname:firstname,
-                lastname:lastname,
-                role:role,
-                email:email,
-                password:password
+                id: id,
+                username: username,
+                firstname: firstname,
+                lastname: lastname,
+                role: role,
+                email: email,
+                password: password
             })
                 .then(function (response) {
                     // console.log("call1",response);
@@ -66,19 +67,17 @@ export default {
                 }.bind(this));
         });
     },
-    postUser: (
-    id,
-    username,
-    firstname,
-    lastname,
-    role,
-    email,
-    password,
-    ) => {
+    postUser: (id,
+               username,
+               firstname,
+               lastname,
+               role,
+               email,
+               password,) => {
 
         // console.log(id, username, firstname, lastname);
         // return false;
-       return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
 
             // Do an async task async task and then...
             //
@@ -89,52 +88,162 @@ export default {
             //     reject('Failure!');
             // }
 
-           console.log(id, username, firstname, lastname);
-           resolve('Success!');
+            console.log(id, username, firstname, lastname);
+            resolve('Success!');
 
 
-           Axios.defaults.headers.common['x-access-token'] = localStorage.getItem("token");
-        Axios.put('http://localhost:23000/api/user', {
-            id:id,
-            username:username,
-            firstname:firstname,
-            lastname:lastname,
-            role:role,
-            email:email,
-            password:password
-        })
-            .then(function (response) {
-                // console.log("call1",response);
-                if (response.status == 200) {
-                    // console.log("call2",response);
-                    resolve('Success!');
-                }
+            Axios.defaults.headers.common['x-access-token'] = localStorage.getItem("token");
+            Axios.put('http://localhost:23000/api/user', {
+                id: id,
+                username: username,
+                firstname: firstname,
+                lastname: lastname,
+                role: role,
+                email: email,
+                password: password
+            })
+                .then(function (response) {
+                    // console.log("call1",response);
+                    if (response.status == 200) {
+                        // console.log("call2",response);
+                        resolve('Success!');
+                    }
 
-            }.bind(this))
-            .catch(function (error) {
-                console.log(error);
-                // this.setState({messageError: 'Connection pas réussi'});
-                reject('Failure!');
-            }.bind(this));
-       });
+                }.bind(this))
+                .catch(function (error) {
+                    console.log(error);
+                    // this.setState({messageError: 'Connection pas réussi'});
+                    reject('Failure!');
+                }.bind(this));
+        });
     },
     deleteUser: (id) => {
         // console.log(id);
         // return false;
 
         Axios.defaults.headers.common['x-access-token'] = localStorage.getItem("token");
-        Axios.delete('http://localhost:23000/api/user/'+id)
+        Axios.delete('http://localhost:23000/api/user/' + id)
             .then(function (response) {
-                console.log("call1",response);
+                console.log("call1", response);
                 if (response.status == 200) {
                     //
-                    console.log("call2",response);
+                    console.log("call2", response);
                 }
             }.bind(this))
             .catch(function (error) {
                 console.log(error);
                 // this.setState({messageError: 'Connection pas réussi'});
             }.bind(this));
+    },
+
+    ///////////////////////////////////////////////////////
+    // Project management
+    //////////////////////////////////////////////////////
+
+    createProject: (title,
+                    description,
+                    startDate,
+                    endDate,
+                    deadline,
+                    status,
+                    nbWorker,
+                    tags) => {
+
+        return new Promise((resolve, reject) => {
+            resolve('Success!');
+
+
+            Axios.defaults.headers.common['x-access-token'] = localStorage.getItem("token");
+            Axios.post('http://localhost:23000/api/projects', {
+                title: title,
+                description: description,
+                startDate: startDate,
+                endDate: endDate,
+                deadline: deadline,
+                status: status,
+                nbWorker: nbWorker,
+                tags: tags
+            })
+                .then(function (response) {
+                    if (response.status == 200) {
+                        resolve('Success!');
+                    }
+
+                }.bind(this))
+                .catch(function (error) {
+                    console.log(error);
+                    reject('Failure!');
+                }.bind(this));
+        });
+    },
+
+    updateProject: (id,
+                    title,
+                    description,
+                    startDate,
+                    endDate,
+                    deadline,
+                    status,
+                    nbWorker,
+                    tags,
+                    projectManagerId,
+                    projectManagerUsername,
+                    projectManagerFirstname,
+                    projectManagerLastname,
+                    projectManagerEmail,
+                    projectManagerPassword,
+                    ) => {
+
+        return new Promise((resolve, reject) => {
+
+            resolve('Success!');
+
+
+            Axios.defaults.headers.common['x-access-token'] = localStorage.getItem("token");
+            Axios.put('http://localhost:23000/api/projects', {
+                id: id,
+                title: title,
+                description: description,
+                startDate: startDate,
+                endDate: endDate,
+                deadline: deadline,
+                status: status,
+                nbWorker: nbWorker,
+                tags: tags,
+                projectManager: {
+                    id: projectManagerId,
+                    username: projectManagerUsername,
+                    firstname: projectManagerFirstname,
+                    lastname: projectManagerLastname,
+                    email: projectManagerEmail,
+                    password: projectManagerPassword
+                }
+            })
+                .then(function (response) {
+                    if (response.status == 200) {
+                        resolve('Success!');
+                    }
+
+                }.bind(this))
+                .catch(function (error) {
+                    console.log(error);
+                    reject('Failure!');
+                }.bind(this));
+        });
+    },
+
+    deleteProject: (id) => {
+
+        Axios.defaults.headers.common['x-access-token'] = localStorage.getItem("token");
+        Axios.delete('http://localhost:23000/api/projects', {
+            data:{id: id}
+        })
+            .then(function (response) {
+                if (response.status == 200) {
+                }
+            }.bind(this))
+            .catch(function (error) {
+                console.log(error);
+            }.bind(this));
     }
 }
-

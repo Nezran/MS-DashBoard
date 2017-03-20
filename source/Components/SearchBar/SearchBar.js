@@ -5,7 +5,7 @@ import DatePicker from 'material-ui/DatePicker';
 import TextField from 'material-ui/TextField';
 import Chip from 'material-ui/Chip';
 import areIntlLocalesSupported from 'intl-locales-supported';
-import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
+import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
 import {green300, red300} from 'material-ui/styles/colors';
 
 export default  class SearchBar extends React.Component{

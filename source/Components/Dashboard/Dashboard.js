@@ -28,6 +28,9 @@ export default  class Dashboard extends React.Component{
                     displayedProjects: response.data
                 })
             })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
 
@@ -38,7 +41,6 @@ export default  class Dashboard extends React.Component{
     }
 
     formatDeadline(deadline) {
-
         return new Date(deadline).toLocaleDateString();
     }
 
