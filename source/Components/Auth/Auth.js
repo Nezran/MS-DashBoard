@@ -16,7 +16,6 @@ export default {
         browserHistory.push('/projects');
         handleLogged(false);
         window.location.reload();
-
     },
     isAuth: () => {
         const auth = localStorage.getItem('token');

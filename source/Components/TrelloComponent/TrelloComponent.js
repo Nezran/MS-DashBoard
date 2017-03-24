@@ -22,7 +22,6 @@ export default class TrelloComponent extends React.Component{
         trello_user_data:'',
         trello_boards_id:[],
         setParent:'',
-
     };
 
     constructor(props) {

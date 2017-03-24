@@ -13,7 +13,7 @@
 /////////////////////////////////////
 
 import React from 'react';
-import {Router, Route, IndexRoute, History} from 'react-router';
+import {Router, Route, IndexRoute, History, hashHistory} from 'react-router';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 import Dashboard from './../Components/Dashboard/Dashboard';
 import Accounts from './../Components/Accounts/Accounts';
@@ -31,7 +31,6 @@ export default class RouterComponent extends React.Component {
 
     constructor(props) {
         super(props);
-
     }
 
     render() {

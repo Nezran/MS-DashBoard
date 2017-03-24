@@ -1,3 +1,6 @@
+/*
+This file is the main api interface for trello.
+*/
 (function () {
     var opts = {
         "version": 1,

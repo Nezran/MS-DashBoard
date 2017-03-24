@@ -114,20 +114,28 @@ export default class Wrapper extends AuthorizeComponent {
         Logged.muiName = 'IconMenu';
         const func = this.handleChange;
         const funcLoader = this.renderLoader;
+
+        // intercept children component
         const childWithProps = React.Children.map(this.props.children, child => {
+
+            // we clone component and inject props
             return React.cloneElement(child, {
                     handleLogged: func,
                     handleLoader: funcLoader,
                 });
             }
         );
+
       const styleButton = {
           color: purple50,
           fontWeight: 100,
       };
+        // loop on routes child
         const childmenu = this.props.route.childRoutes.map(child => {
             if(child.name){
+                // if route protected
                 if(child.authorizedRoles){
+                    // if user has access
                     if((_.indexOf(child.authorizedRoles, localStorage.getItem("role")) >= 0)){
                         return (
                             <FlatButton
@@ -139,14 +147,13 @@ export default class Wrapper extends AuthorizeComponent {
                         )
                     }
                 }else{
-
                     return (
+                        // if no protection
                         <FlatButton
                             key={child.path}
                             label={child.name}
                             href={child.path}
                             style={styleButton}
-
                         />
                     )
                 }
@@ -158,7 +165,6 @@ export default class Wrapper extends AuthorizeComponent {
         }
 
         childmenu.muiName = 'IconMenu';
-
 
         return (
             <div>

@@ -43,12 +43,14 @@ const App = function () {
             clockCircleColor: fade(darkBlack, 0.07),
             shadowColor: fullBlack,
             floatingLabelStyle: '#9b59b6',
-            textField:{floatingLabelStyle:'#9b59b6'}
+            textField:{
+                floatingLabelStyle:'#9b59b6'
+            }
         },
     });
 
 
-    // Point d'entrée de l'application, on passe le router dans le template
+    // Point d'entrée de l'application, on passe le routeyr dans le template
     return (
         <div>
             <MuiThemeProvider muiTheme={muiTheme}>
