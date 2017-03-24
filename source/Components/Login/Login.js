@@ -6,6 +6,8 @@ import Jwt from 'jwt-decode';
 import _ from 'lodash';
 import AuthorizeComponent from '../Authorize/Authorize';
 import Auth from '../Auth/Auth';
+import Vpnkey from 'material-ui/svg-icons/communication/vpn-key';
+import User from 'material-ui/svg-icons/action/verified-user';
 
 export default  class Login extends AuthorizeComponent{
     constructor(props){
@@ -20,15 +22,6 @@ export default  class Login extends AuthorizeComponent{
         messageError: '',
     }
 
-    componentDidMount(){
-        // Axios.get('http://localhost:23000/api/projects')
-        //     .then(function (response) {
-        //         console.log(response);
-        //     })
-        //     .catch(function (error) {
-        //         console.log(error);
-        //     });
-    }
     handleSubmit = (e) => {
         e.preventDefault();
         Auth.postUser(
@@ -37,43 +30,18 @@ export default  class Login extends AuthorizeComponent{
             this.props.handleLogged
         );
         this.props.router.push('/');
-        // this.setState({username:document.getElementsByName('username')[0].value, password: document.getElementsByName('password')[0].value}, (e) =>{
-        //     // this.postUser();
-        //     Auth();
-        // });
     }
-    // postUser = () => {
-    //     Axios.post('http://localhost:23000/api/auth', {
-    //         username: this.state.username,
-    //         password: this.state.password
-    //     })
-    //     .then(function (response) {
-    //
-    //         console.log(response);
-    //
-    //         if(response.statusField == 200){
-    //             this.setState({messageError: ''});
-    //             console.log(Jwt(response.data));
-    //
-    //             const dataUser = Jwt(response.data);
-    //             _.mapKeys(dataUser, (value,key) =>{
-    //                 localStorage.setItem(key,value);
-    //             });
-    //             localStorage.setItem("token",response.data);
-    //             console.log("props",this.props);
-    //             this.props.router.push('/');
-    //         }
-    //     }.bind(this))
-    //     .catch(function (error) {
-    //         console.log(error);
-    //         this.setState({messageError:'Connection pas réussi'});
-    //     }.bind(this));
-    // }
     render() {
+        const iconStyles = {
+            marginRight: 24,
+        };
+
         return (
             <div className="home-page">
-                <h1>Login</h1>
+                <h1>Connection</h1>
                 <form onSubmit={this.handleSubmit}>
+
+                    <User style={iconStyles} color={'#9b59b6'}/>
                     <TextField
                         ref="username"
                         name="username"
@@ -81,6 +49,8 @@ export default  class Login extends AuthorizeComponent{
                         errorText={this.state.messageError}
                     />
                     <br/>
+
+                    <Vpnkey style={iconStyles} color={'#9b59b6'}/>
                     <TextField
                         name="password"
                         hintText="Password"

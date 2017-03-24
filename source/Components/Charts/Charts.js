@@ -88,7 +88,7 @@ export default class Charts extends React.Component{
             <div style={styleDivContainer}>
 
                 {
-                    this.state.trelloChart >= 0 ? <h1>Trello statistiques</h1> : ""
+                    this.state.trelloChart >= 0 ? "" : <h1>Trello statistiques</h1>
                 }
 
                 {

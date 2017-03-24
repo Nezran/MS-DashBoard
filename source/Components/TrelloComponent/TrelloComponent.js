@@ -9,6 +9,7 @@ import Axios from 'axios';
 import FlatButton from 'material-ui/FlatButton';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import TrelloBoards from './TrelloBoards';
+import RaisedButton from 'material-ui/RaisedButton';
 
 export default class TrelloComponent extends React.Component{
     defaultState = {
@@ -154,9 +155,9 @@ export default class TrelloComponent extends React.Component{
                         Connecté en tant que : {this.state.trello_user_data.username}
                         <img src={"https://trello-avatars.s3.amazonaws.com/"+this.state.trello_user_data.avatarHash+"/30.png"} />
                     </p>
-                    <FlatButton  label="Déconnexion" onClick={this.trelloDisconnect} />
+                    <RaisedButton  label="Déconnexion" onClick={this.trelloDisconnect} primary={true} />
+                    <p></p>
                     <span style={styles.wrapper}>
-                        
                         {
                             this.state.trello_boards.map((board,i) => {
                                 return <TrelloBoards {...board} key={i} api_key={this.state.api_key} trello_token={this.state.trello_token} />
@@ -171,7 +172,7 @@ export default class TrelloComponent extends React.Component{
             return(
                 <div>
                     <h1>Trello</h1>
-                    <FlatButton  label="Connecter avec Trello" onClick={this.AuthenticateTrello} />
+                    <RaisedButton  label="Connecter avec Trello" onClick={this.AuthenticateTrello} primary={true} />
                 </div>
             )
         }

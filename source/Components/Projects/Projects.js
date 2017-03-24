@@ -5,6 +5,7 @@ import React from 'react';
 import AuthorizeComponent from '../Authorize/Authorize';
 import Axios from 'axios';
 import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import CardProjectActions from './CardProjectActions';
 import CreateProject from './CreateProject';
 
@@ -82,8 +83,7 @@ export default  class Projects extends AuthorizeComponent {
 
                     {this.state.create}
                     {this.state.open ? <CreateProject  handleLoader={this.props.handleLoader}  handleChangement={this.handleChangement} open={this.state.open} handleClose={this.handleClose}/> : ""}
-                    <FlatButton label="Créer un projet" onTouchTap={this.handleOpen} secondary={true}/>
-
+                    <RaisedButton label="Créer un projet" onTouchTap={this.handleOpen} primary={true}/>
                     {cardProject}
 
                 </div>
@@ -97,7 +97,7 @@ export default  class Projects extends AuthorizeComponent {
 
                     <h1>Gestion des projets</h1>
 
-                    <FlatButton label="Créer un projet" onTouchTap={this.handleOpen} secondary={true}/>
+                    <RaisedButton label="Créer un projet" onTouchTap={this.handleOpen} primary={true}/>
 
                     {cardProject}
 

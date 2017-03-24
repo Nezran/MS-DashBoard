@@ -43,7 +43,7 @@ export default class RouterComponent extends React.Component {
                         <IndexRoute component={Dashboard} />
                         <Route path="/projects" component={Dashboard} name="Projets"/>
                         <Route path="/trello" component={TrelloComponent} name="Trello"/>
-                        <Route path="/projectsManagement" authorizedRoles={['Project manager']} component={Projects} name="Gérer mes projets "/>
+                        <Route path="/projectsManagement" authorizedRoles={['Project Manager']} component={Projects} name="Gérer mes projets "/>
                         <Route path="/accountsManagement" authorizedRoles={['Administrator','Project Manager']} component={Accounts} name="Gérer les comptes"/>
                         <Route path="/login" component={Login} authorizedRoles={['guest']} handler={this.handleLogged} name="Se connecter" />
                         <Route path="/noAccess" component={NotAuthorized}/>

@@ -221,7 +221,7 @@ export default class Wrapper extends AuthorizeComponent {
                         {childmenu}
                     </div>
                 </header>
-                <a onClick={this.renderLoader}>toggle loader</a>
+                {/*<a onClick={this.renderLoader}>toggle loader</a>*/}
 
                 {
                    this.state.loader ?
@@ -241,53 +241,12 @@ export default class Wrapper extends AuthorizeComponent {
                 {/*// iconElementRight={this.state.logged ? <Logged /> : <Login />}*/}
                 <div className="content">
                         {childWithProps}
-
                 </div>
+
+                <footer className="footer">
+                    <i>Créé par Stéphane martignier & Mickaël Lacombe</i>
+                </footer>
             </div>
         );
     }
-
-    // render() {
-    //     return (
-    //         <FlatButton {...this.props} label="Login" />
-    //     );
-    // }
 }
-
-
-
-
-//
-// /**
-//  * This example is taking advantage of the composability of the `AppBar`
-//  * to render different components depending on the application state.
-//  */
-// class AppBarExampleComposition extends Component {
-//     state = {
-//         logged: true,
-//     };
-//
-//     handleChange = (event, logged) => {
-//         this.setState({logged: logged});
-//     };
-//
-//     render() {
-//         return (
-//             <div>
-//                 <Toggle
-//                     label="Logged"
-//                     defaultToggled={true}
-//                     onToggle={this.handleChange}
-//                     labelPosition="right"
-//                     style={{margin: 20}}
-//                 />
-//                 <AppBar
-//                     title="Title"
-//                     iconElementLeft={<IconButton><NavigationClose /></IconButton>}
-//                     iconElementRight={this.state.logged ? <Logged /> : <Login />}
-//                 />
-//             </div>
-//         );
-//     }
-// }
-//

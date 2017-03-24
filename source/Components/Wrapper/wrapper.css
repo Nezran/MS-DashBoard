@@ -27,3 +27,17 @@ body{
     position: absolute;
     left: 48%;
 }
+
+.PageNotFound-page{
+    text-align: center;
+}
+
+.home-page{
+    text-align: center;
+}
+
+.footer {
+    position: fixed;
+    text-align: center;
+    bottom: 0;
+}

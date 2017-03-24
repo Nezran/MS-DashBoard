@@ -61,6 +61,10 @@ export default class CreateProject extends React.Component {
 
         this.props.handleLoader();
 
+        if(document.getElementsByName('nbWorker')[0].value.length == -1){
+            console.log("vide");
+        }
+
         Api.createProject(
             document.getElementsByName('title')[0].value,
             document.getElementsByName('description')[0].value,
@@ -71,13 +75,10 @@ export default class CreateProject extends React.Component {
             document.getElementsByName('nbWorker')[0].value,
             this.state.tagsValues
         ).then((r) => {
-
             this.props.handleLoader();
             this.props.handleClose();
             this.setState({open: false});
             this.props.handleChangement();
-
-
         }).catch((c) => {
             console.log("error create", c);
         });
@@ -192,6 +193,7 @@ export default class CreateProject extends React.Component {
                                 type="text"
                                 underlineShow={false}
                                 floatingLabelFixed={true}
+
                             />
                             <Divider />
                             <SelectField
@@ -286,8 +288,7 @@ export default class CreateProject extends React.Component {
                             <Toolbar style={styles.toolbar}>
                                 <ToolbarTitle text="Créez un tag"/>
                                 <TextField id="newTag" ref={input => this.addTagField = input}/>
-                                <RaisedButton label="Ajouter" primary={true} style={styles.toolbarButton}
-                                              onClick={this.handleAddTag}/>
+                                <RaisedButton label="Ajouter" primary={true} style={styles.toolbarButton}  onClick={this.handleAddTag}/>
                             </Toolbar>
                         </form>
                     </Dialog>
