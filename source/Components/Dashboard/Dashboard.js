@@ -1,7 +1,9 @@
 import React from 'react';
+import {Link} from 'react-router';
 import Axios from 'axios';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import {green700, red500} from 'material-ui/styles/colors';
+import RaisedButton from 'material-ui/RaisedButton';
 import Chip from 'material-ui/Chip';
 import SearchBar from './../SearchBar/SearchBar';
 import TrelloComponent from '../TrelloComponent/TrelloComponent';
@@ -78,6 +80,9 @@ export default  class Dashboard extends React.Component{
             },
             icons: {
                 marginRight: 24,
+            },
+            button: {
+                margin: 12
             }
         };
 
@@ -114,6 +119,7 @@ export default  class Dashboard extends React.Component{
                                     Responsable: {project.projectManager.lastname} {project.projectManager.firstname} <br />
                                     Participants : {project.nbWorker} <br />
                                     Description :  {project.description} <br />
+                                    <Link to={`/projects/${project.id}`}><RaisedButton label="Détails" style={styles.button} /></Link>
                                 </CardText>
                             </Card>
                         })}
