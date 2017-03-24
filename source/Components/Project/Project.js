@@ -79,7 +79,7 @@ export default  class Project extends React.Component {
                 <div className="home-page">
                     <Card>
                         <CardMedia>
-                            <img src="http://static.hitek.fr/img/actualite/i_caverne-ali-baba-lego.jpg" height={600} />
+                            <img src="https://www.feralinteractive.com/data/games/legolordoftherings/images/characters/main/gandalf.jpg" height={'100%'} />
                             {/*<img src="https://c1.staticflickr.com/4/3883/15374400311_8abe93652a_b.jpg" height={600} />*/}
                         </CardMedia>
                         <CardTitle title={this.state.project.title} subtitle={this.setStatusChip(this.state.project.status, styles.chip)} />

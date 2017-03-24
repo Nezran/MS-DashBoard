@@ -8,7 +8,6 @@ import Toggle from 'material-ui/Toggle';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import AuthorizeComponent from '../Authorize/Authorize';
-import Index from '../Index/Index';
 import { Router, Route, Link, browserHistory } from 'react-router'
 import _ from 'lodash';
 import {GridList, GridTile} from 'material-ui/GridList';
@@ -184,22 +183,6 @@ export default class Wrapper extends AuthorizeComponent {
                 }
             }
         });
-
-      const indexComponent = this.props.route.childRoutes.map(child => {
-        if(child.name){
-          if(child.authorizedRoles){
-            if((_.indexOf(child.authorizedRoles, localStorage.getItem("role")) >= 0)){
-              return (<Index {...child}/>)
-            }
-          }else{
-
-            return (
-            ""
-            )
-          }
-        }
-      });
-
 
         if(Auth.isAuth()){
             childmenu.push(<FlatButton  label="Se déconnecter" onClick={this.handleSignOut}  style={styleButton} />);

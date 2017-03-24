@@ -24,24 +24,7 @@ export default {
                  role,
                  email,
                  password,) => {
-
-        // console.log(id, username, firstname, lastname);
-        // return false;
         return new Promise((resolve, reject) => {
-
-            // Do an async task async task and then...
-            //
-            // if(/* good condition */) {
-            //     resolve('Success!');
-            // }
-            // else {
-            //     reject('Failure!');
-            // }
-
-            console.log(id, username, firstname, lastname);
-            resolve('Success!');
-
-
             Axios.defaults.headers.common['x-access-token'] = localStorage.getItem("token");
             Axios.post('http://localhost:23000/api/user', {
                 id: id,
@@ -74,19 +57,7 @@ export default {
                role,
                email,
                password,) => {
-
-        // console.log(id, username, firstname, lastname);
-        // return false;
         return new Promise((resolve, reject) => {
-
-            // Do an async task async task and then...
-            //
-            // if(/* good condition */) {
-            //     resolve('Success!');
-            // }
-            // else {
-            //     reject('Failure!');
-            // }
 
             console.log(id, username, firstname, lastname);
             resolve('Success!');
