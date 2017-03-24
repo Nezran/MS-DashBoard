@@ -1,6 +1,8 @@
-/**
- * Created by Stephane.MARTIGNIER on 17.03.2017.
- */
+//////////////////////////////////////
+// CardProjectActions component
+// Display a project in project management view
+/////////////////////////////////////
+
 import React from 'react';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
@@ -198,7 +200,7 @@ export default class CardProjectActions extends React.Component {
         let projectTags = this.state.projectTags;
         let allTags = this.state.allTags;
 
-        if(newTag != "") {
+        if (newTag != "") {
             projectTags.push(newTag);
             allTags.push(newTag);
         }
@@ -387,9 +389,10 @@ export default class CardProjectActions extends React.Component {
                                     </SelectField>
                                     <Divider />
                                     <Toolbar style={styles.toolbar}>
-                                        <ToolbarTitle text="Créez un tag" />
-                                        <TextField id="newTag" ref={input => this.addTagField = input} />
-                                        <RaisedButton label="Ajouter" primary={true} style={styles.toolbarButton} onClick={this.handleAddTag} />
+                                        <ToolbarTitle text="Créez un tag"/>
+                                        <TextField id="newTag" ref={input => this.addTagField = input}/>
+                                        <RaisedButton label="Ajouter" primary={true} style={styles.toolbarButton}
+                                                      onClick={this.handleAddTag}/>
                                     </Toolbar>
                                 </form>
 

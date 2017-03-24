@@ -1,26 +1,27 @@
+//////////////////////////////////////
+// Login component
+/////////////////////////////////////
+
 import React from 'react';
-import { Router, Route, Link, browserHistory  } from 'react-router'
-import Axios from 'axios';
-import { TextField, RaisedButton }from 'material-ui';
-import Jwt from 'jwt-decode';
-import _ from 'lodash';
+import {TextField, RaisedButton}from 'material-ui';
 import AuthorizeComponent from '../Authorize/Authorize';
 import Auth from '../Auth/Auth';
 import Vpnkey from 'material-ui/svg-icons/communication/vpn-key';
 import User from 'material-ui/svg-icons/action/verified-user';
 
-export default  class Login extends AuthorizeComponent{
-    constructor(props){
+export default  class Login extends AuthorizeComponent {
+    constructor(props) {
         super(props);
 
-        console.log("log",this.props);
+        console.log("log", this.props);
     }
+
     state = {
         username: '',
         password: '',
         messageLogin: '',
         messageError: '',
-    }
+    };
 
     handleSubmit = (e) => {
         e.preventDefault();
@@ -30,7 +31,8 @@ export default  class Login extends AuthorizeComponent{
             this.props.handleLogged
         );
         this.props.router.push('/');
-    }
+    };
+
     render() {
         const iconStyles = {
             marginRight: 24,
@@ -65,9 +67,6 @@ export default  class Login extends AuthorizeComponent{
                         type="submit"
                     />
                 </form>
-
-                {/*<Link to="/accountsManagement">le lien</Link>*/}
-
             </div>
         );
     }

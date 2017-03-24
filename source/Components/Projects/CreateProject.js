@@ -1,6 +1,8 @@
-/**
- * Created by Stephane.MARTIGNIER on 17.03.2017.
- */
+//////////////////////////////////////
+// CreateProject component
+// Modal for create a new project
+/////////////////////////////////////
+
 import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import {TextField, SelectField, MenuItem}from 'material-ui';
@@ -61,7 +63,7 @@ export default class CreateProject extends React.Component {
 
         this.props.handleLoader();
 
-        if(document.getElementsByName('nbWorker')[0].value.length == -1){
+        if (document.getElementsByName('nbWorker')[0].value.length == -1) {
             console.log("vide");
         }
 
@@ -125,7 +127,7 @@ export default class CreateProject extends React.Component {
         let currentTags = this.state.tagsValues;
         let tags = this.state.tags;
 
-        if(newTag != "") {
+        if (newTag != "") {
             tags.push(newTag);
             currentTags.push(newTag);
         }
@@ -205,8 +207,10 @@ export default class CreateProject extends React.Component {
                                 ref="status"
                                 value={this.state.status}
                             >
-                                <MenuItem value={'Open'} primaryText="En cours" checked={this.state.status && this.state.status == "Open"}/>
-                                <MenuItem value={'Close'} primaryText="Terminé" checked={this.state.status && this.state.status == "Close"}/>
+                                <MenuItem value={'Open'} primaryText="En cours"
+                                          checked={this.state.status && this.state.status == "Open"}/>
+                                <MenuItem value={'Close'} primaryText="Terminé"
+                                          checked={this.state.status && this.state.status == "Close"}/>
                             </SelectField>
                             <Divider />
                             <DatePicker
@@ -288,7 +292,8 @@ export default class CreateProject extends React.Component {
                             <Toolbar style={styles.toolbar}>
                                 <ToolbarTitle text="Créez un tag"/>
                                 <TextField id="newTag" ref={input => this.addTagField = input}/>
-                                <RaisedButton label="Ajouter" primary={true} style={styles.toolbarButton}  onClick={this.handleAddTag}/>
+                                <RaisedButton label="Ajouter" primary={true} style={styles.toolbarButton}
+                                              onClick={this.handleAddTag}/>
                             </Toolbar>
                         </form>
                     </Dialog>

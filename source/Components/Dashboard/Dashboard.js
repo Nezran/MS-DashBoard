@@ -1,3 +1,9 @@
+//////////////////////////////////////
+// Dashboard component
+// Home page of the application
+// Display all the projects and some charts
+/////////////////////////////////////
+
 import React from 'react';
 import {Link} from 'react-router';
 import Axios from 'axios';
@@ -9,7 +15,7 @@ import SearchBar from './../SearchBar/SearchBar';
 import TrelloComponent from '../TrelloComponent/TrelloComponent';
 import Charts from '../Charts/Charts';
 
-export default  class Dashboard extends React.Component{
+export default class Dashboard extends React.Component {
 
     constructor(props) {
         console.log(Trello);
@@ -17,11 +23,11 @@ export default  class Dashboard extends React.Component{
         this.state = {
             projects: '',
             displayedProjects: '',
-            trelloProjects:[],
+            trelloProjects: [],
         };
     }
 
-    componentDidMount(){
+    componentDidMount() {
         Axios.defaults.baseURL = 'http://localhost:23000/api';
         Axios.get('/projects')
             .then(response => {
@@ -36,8 +42,7 @@ export default  class Dashboard extends React.Component{
     }
 
     getTrelloProjects = (data) => {
-        // console.log("datass",data)
-        this.setState({trelloProjects:data});
+        this.setState({trelloProjects: data});
 
     }
 
@@ -53,12 +58,12 @@ export default  class Dashboard extends React.Component{
 
     setStatusChip(project, style) {
 
-        if(project.status == "Open") {
+        if (project.status == "Open") {
             return <Chip backgroundColor={green700} style={style}>
                 En cours
             </Chip>;
         } else {
-           return <Chip backgroundColor={red500} style={style}>
+            return <Chip backgroundColor={red500} style={style}>
                 Terminé
             </Chip>;
         }
@@ -86,10 +91,11 @@ export default  class Dashboard extends React.Component{
             }
         };
 
-        if(hasData) {
+        if (hasData) {
             return (
                 <div className="home-page">
-                    <SearchBar projects={this.state.projects} displaySearchedProject={this.displaySearchedProject.bind(this)}/>
+                    <SearchBar projects={this.state.projects}
+                               displaySearchedProject={this.displaySearchedProject.bind(this)}/>
                     <h1>Dashboard</h1>
                     <Charts projects={this.state.projects} trelloProjects={this.state.trelloProjects}/>
                     <h3>{this.state.displayedProjects.length > 0 ? "Il y a " + this.state.displayedProjects.length + " projet(s)" : "Il n'y a aucun projet"}</h3>
@@ -105,7 +111,7 @@ export default  class Dashboard extends React.Component{
                                 <CardActions>
                                 <span style={styles.wrapper}>
                                     {this.setStatusChip(project, styles.chip)}
-                                    {project.tags.map(function(tag) {
+                                    {project.tags.map(function (tag) {
                                         return <Chip key={tag} style={styles.chip}>
                                             {tag}
                                         </Chip>;
@@ -116,15 +122,17 @@ export default  class Dashboard extends React.Component{
                                     Date de début : {this.formatDeadline(project.startDate)}<br />
                                     Prochaine echéance : {this.formatDeadline(project.deadline)}<br />
                                     Date de fin : {this.formatDeadline(project.endDate)}<br />
-                                    Responsable: {project.projectManager.lastname} {project.projectManager.firstname} <br />
+                                    Responsable: {project.projectManager.lastname} {project.projectManager.firstname}
+                                    <br />
                                     Participants : {project.nbWorker} <br />
-                                    Description :  {project.description} <br />
-                                    <Link to={`/projects/${project.id}`}><RaisedButton label="Détails" style={styles.button} /></Link>
+                                    Description : {project.description} <br />
+                                    <Link to={`/projects/${project.id}`}><RaisedButton label="Détails"
+                                                                                       style={styles.button}/></Link>
                                 </CardText>
                             </Card>
                         })}
                     </span>
-                    <TrelloComponent getTrelloProjects={this.getTrelloProjects} />
+                    <TrelloComponent getTrelloProjects={this.getTrelloProjects}/>
                 </div>
             );
         }
@@ -134,7 +142,7 @@ export default  class Dashboard extends React.Component{
                     <h1>Dashboard</h1>
                     <h3>Erreur</h3>
                     <p>
-                       Pas de données. Veuillez recharger la page.
+                        Pas de données. Veuillez recharger la page.
                     </p>
                 </div>
             );

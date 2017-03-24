@@ -1,10 +1,12 @@
-/**
- * Created by Stephane.MARTIGNIER on 17.03.2017.
- */
+//////////////////////////////////////
+// Projects component
+// Page for the project management
+// Display the projects of the logged proeject manager
+/////////////////////////////////////
+
 import React from 'react';
 import AuthorizeComponent from '../Authorize/Authorize';
 import Axios from 'axios';
-import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import CardProjectActions from './CardProjectActions';
 import CreateProject from './CreateProject';
@@ -15,10 +17,10 @@ export default  class Projects extends AuthorizeComponent {
         this.getDatas();
     }
 
-    state={
-        create:'',
+    state = {
+        create: '',
         projects: [],
-        open:false,
+        open: false,
     };
 
     getDatas = () => {
@@ -34,7 +36,7 @@ export default  class Projects extends AuthorizeComponent {
                 let projects = [];
 
                 allProjects.map(project => {
-                    if(project.projectManager.id == idUser) {
+                    if (project.projectManager.id == idUser) {
                         projects.push(project);
                     }
                 });
@@ -46,7 +48,7 @@ export default  class Projects extends AuthorizeComponent {
             .catch((error) => {
                 console.log(error);
             });
-    }
+    };
 
     handleChangement = () => {
         console.log("call refresh");
@@ -58,31 +60,30 @@ export default  class Projects extends AuthorizeComponent {
     };
 
     handleClose = () => {
-        this.setState({open: false}, () =>{ });
+        this.setState({open: false}, () => {
+        });
     };
 
     render() {
 
-        const iconStyles = {
-            marginRight: 24,
-        };
-
-
         const cardProject =
             this.state.projects.map(project => {
-                return <CardProjectActions handleLoader={this.props.handleLoader} handleChangement={this.handleChangement} key={project.id} {...project}/>;
+                return <CardProjectActions handleLoader={this.props.handleLoader}
+                                           handleChangement={this.handleChangement} key={project.id} {...project}/>;
             });
 
-        if(this.state.projects.length > 0) {
+        if (this.state.projects.length > 0) {
             return (
                 <div className="home-page">
 
-                    {console.log("open",this.state.open)}
+                    {console.log("open", this.state.open)}
 
                     <h1>Gestion des projets</h1>
 
                     {this.state.create}
-                    {this.state.open ? <CreateProject  handleLoader={this.props.handleLoader}  handleChangement={this.handleChangement} open={this.state.open} handleClose={this.handleClose}/> : ""}
+                    {this.state.open ?
+                        <CreateProject handleLoader={this.props.handleLoader} handleChangement={this.handleChangement}
+                                       open={this.state.open} handleClose={this.handleClose}/> : ""}
                     <RaisedButton label="Créer un projet" onTouchTap={this.handleOpen} primary={true}/>
                     {cardProject}
 
@@ -93,7 +94,7 @@ export default  class Projects extends AuthorizeComponent {
             return (
                 <div className="home-page">
 
-                    {console.log("open",this.state.open)}
+                    {console.log("open", this.state.open)}
 
                     <h1>Gestion des projets</h1>
 

@@ -1,6 +1,8 @@
-/**
- * Created by Stephane.MARTIGNIER on 23.03.2017.
- */
+//////////////////////////////////////
+// Project component
+// Display a specific project
+/////////////////////////////////////
+
 import React from 'react';
 import Axios from 'axios';
 import Chip from 'material-ui/Chip';
@@ -22,6 +24,7 @@ export default  class Project extends React.Component {
     }
 
     componentDidMount() {
+        // Get the id from the params
         this.setState({
             projectId: this.props.params.id
         }, () => {
@@ -79,13 +82,15 @@ export default  class Project extends React.Component {
                 <div className="home-page">
                     <Card>
                         <CardMedia>
-                            <img src="https://www.feralinteractive.com/data/games/legolordoftherings/images/characters/main/gandalf.jpg" height={'100%'} />
-                            {/*<img src="https://c1.staticflickr.com/4/3883/15374400311_8abe93652a_b.jpg" height={600} />*/}
+                            <img
+                                src="https://www.feralinteractive.com/data/games/legolordoftherings/images/characters/main/gandalf.jpg"
+                                height={'100%'}/>
                         </CardMedia>
-                        <CardTitle title={this.state.project.title} subtitle={this.setStatusChip(this.state.project.status, styles.chip)} />
+                        <CardTitle title={this.state.project.title}
+                                   subtitle={this.setStatusChip(this.state.project.status, styles.chip)}/>
                         <CardText>
                             <hr />
-                            <span style={styles.wrapper}>{this.state.project.tags.map(function(tag) {
+                            <span style={styles.wrapper}>{this.state.project.tags.map(function (tag) {
                                 return <Chip key={tag} style={styles.chip}>
                                     {tag}
                                 </Chip>;
@@ -99,7 +104,8 @@ export default  class Project extends React.Component {
                             <b>Description du projet: </b><br />
                             <p style={styles.description}>{this.state.project.description}</p><br />
                             <hr />
-                            <b>Responsable du projet:</b> {this.state.project.projectManager.firstname} {this.state.project.projectManager.lastname}<br />
+                            <b>Responsable du
+                                projet:</b> {this.state.project.projectManager.firstname} {this.state.project.projectManager.lastname}<br />
                             <b>Nombre de participants:</b> {this.state.project.nbWorker}
                         </CardText>
                     </Card>
@@ -109,12 +115,9 @@ export default  class Project extends React.Component {
         else {
             return (
                 <div className="home-page">
-
                     <h1>Projet non trouvé</h1>
-
                 </div>
             );
         }
-
     }
 };
