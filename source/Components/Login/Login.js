@@ -37,7 +37,7 @@ export default  class Login extends AuthorizeComponent{
         };
 
         return (
-            <div className="home-page">
+            <div className="login-page">
                 <h1>Connection</h1>
                 <form onSubmit={this.handleSubmit}>
 

@@ -244,7 +244,7 @@ export default class Wrapper extends AuthorizeComponent {
                 </div>
 
                 <footer className="footer">
-                    <i>Créé par Stéphane martignier & Mickaël Lacombe</i>
+                    <i>Créé par Stéphane Martignier & Mickaël Lacombe</i>
                 </footer>
             </div>
         );
