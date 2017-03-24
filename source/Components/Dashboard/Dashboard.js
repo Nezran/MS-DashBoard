@@ -18,7 +18,6 @@ import Charts from '../Charts/Charts';
 export default class Dashboard extends React.Component {
 
     constructor(props) {
-        console.log(Trello);
         super(props);
         this.state = {
             projects: '',
@@ -36,8 +35,8 @@ export default class Dashboard extends React.Component {
                     displayedProjects: response.data
                 })
             })
-            .catch((error) => {
-                console.log(error);
+            .catch((e) => {
+                console.log(e);
             });
     }
 

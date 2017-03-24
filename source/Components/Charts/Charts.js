@@ -1,6 +1,7 @@
-/**
- * Created by Mickael.LACOMBE on 20.03.2017.
- */
+//////////////////////////////////////
+// Charts component
+// Generate charts with data from trello and projects
+/////////////////////////////////////
 
 import React from 'react';
 import {PieChart, Pie, Legend,Tooltip,Cell,BarChart,BarXAxis, YAxis, CartesianGrid,XAxis,Bar} from 'recharts';
@@ -14,24 +15,18 @@ export default class Charts extends React.Component{
     }
 
     componentWillReceiveProps(nextProps){
-
-        console.log("next",nextProps);
-
         this.setState({trelloProjects:nextProps.trelloProjects}, (then) => {
             var trelloData = [];
             if(nextProps.length != -1){
                 this.state.trelloProjects.map((trello,i) => {
-                    console.log("proj",trello);
                     trelloData.push({name:trello.name, cards:trello.cards.length, lists:trello.lists.length});
                 });
                 this.setState({trelloChart:trelloData});
-                console.log("trelllo",trelloData)
             }
         });
     }
 
     componentDidMount(){
-        console.log(this.props);
         this.state.trelloProjects = this.props.trelloProjects;
 
         var tags = [];
@@ -61,28 +56,19 @@ export default class Charts extends React.Component{
         tags:[],
         trelloProjects:[],
         trelloChart:[],
-    }
-
-    countState = (state) =>{
-        var tot = 0;
-        state.map((item,index) => {
-            tot ++
-        });
-
-        return tot
-    }
+    };
 
     render(){
 
         const styleDiv={
             width: "33%",
             float: "left",
-        }
+        };
 
         const styleDivContainer={
             width: "100%",
             float: "left",
-        }
+        };
 
         return(
             <div style={styleDivContainer}>

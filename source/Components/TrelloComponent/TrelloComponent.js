@@ -29,8 +29,6 @@ export default class TrelloComponent extends React.Component{
         super(props);
         this.state = this.defaultState;
         this.state.setParent = this.props.getTrelloProjects;
-
-        // console.log("props",this.props);
     }
 
     componentWillMount(){
@@ -46,7 +44,6 @@ export default class TrelloComponent extends React.Component{
     getTrelloMembers = () => {
         Axios.get('https://api.trello.com/1/members/'+this.state.trello_user+'?key='+this.state.api_key+'&token='+this.state.trello_token)
             .then( (response) => {
-                // console.log(response);
                 this.setState({trello_user_data:response.data, trello_boards_id: response.data.idBoards }, (f) => {
                     this.state.trello_boards_id.map((board) => {
                         this.getTrelloBoard(board);
@@ -56,8 +53,8 @@ export default class TrelloComponent extends React.Component{
                     );
                 });
             })
-            .catch( (error) => {
-                console.log(error);
+            .catch( (e) => {
+                console.log(e);
             });
     }
 
@@ -72,14 +69,13 @@ export default class TrelloComponent extends React.Component{
                     });
 
                 })
-                .catch( (error) => {
-                    console.log(error);
+                .catch( (e) => {
+                    console.log(e);
                 });
     }
 
     AuthenticateTrello = () => {
 
-        // console.log(this.state);
         Trello.authorize({
             name: "DashBoard Project",
             type: "popup",
@@ -88,20 +84,17 @@ export default class TrelloComponent extends React.Component{
             persist: true,
             success: (e) => {
 
-                // console.log(e,"connect success");
-
                 var token = Trello.token();
                 // window.location.replace("/auth?token=" + token);
 
                 Axios.get('https://api.trello.com/1/tokens/'+token+'?key=ff9ada8463a83c083553e753520ffbec&token='+token)
                     .then((response) => {
-                        // console.log(response);
                         this.setState({trello_connected:true,trello_response_token:response.data,trello_token:token, trello_user:response.data.idMember}, (e) => {
                             this.getTrelloMembers();
                         });
                     })
-                    .catch((error) => {
-                        console.log(error);
+                    .catch((e) => {
+                        console.log(e);
                     });
             },
             scope: { write: false, read: true },
@@ -119,8 +112,8 @@ export default class TrelloComponent extends React.Component{
                     this.setParent([]);
                 });
             })
-            .catch((error) => {
-                console.log(error);
+            .catch((e) => {
+                console.log(e);
             });
 
 
@@ -148,9 +141,6 @@ export default class TrelloComponent extends React.Component{
                 <div>
                     <h1>Trello</h1>
 
-                    {/*{console.log(Trello)}*/}
-                    {/*{console.log(this.state)}*/}
-
                     <p>
                         Connecté en tant que : {this.state.trello_user_data.username}
                         <img src={"https://trello-avatars.s3.amazonaws.com/"+this.state.trello_user_data.avatarHash+"/30.png"} />
@@ -162,7 +152,6 @@ export default class TrelloComponent extends React.Component{
                             this.state.trello_boards.map((board,i) => {
                                 return <TrelloBoards {...board} key={i} api_key={this.state.api_key} trello_token={this.state.trello_token} />
                             }, e => {
-                                console.log("finiboard",e);
                             })
                         }
                     </span>

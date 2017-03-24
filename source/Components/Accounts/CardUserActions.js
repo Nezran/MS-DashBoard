@@ -1,59 +1,32 @@
-/**
- * Created by micka on 11/03/2017.
- */
+//////////////////////////////////////
+// CardUserActions component
+// Display a user in account management view
+/////////////////////////////////////
+
 import React from 'react';
-import {Card, CardActions, CardHeader,  CardTitle, CardText} from 'material-ui/Card';
+import {Card, CardActions, CardHeader,  CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import { TextField, SelectField, MenuItem }from 'material-ui';
 import Divider from 'material-ui/Divider';
 import Axios from 'axios';
 import Dialog from 'material-ui/Dialog';
-
 import Api from '../../Actions/Api';
 
 export default class CardUserActions extends React.Component{
-  componentDidMount() {
 
-      // Axios.interceptors.request.use( (config) => {
-      //
-      //     // Do something before request is sent
-      //
-      //     console.log("axios intercept ");
-      //     this.props.handleLoader();
-      //
-      //     return config;
-      // }, function (error) {
-      //     // Do something with request error
-      //     return Promise.reject(error);
-      // });
-      //
-      // Axios.interceptors.response.use( (response) => {
-      //     // Do something with response data
-      //     this.props.handleLoader();
-      //
-      //     return response;
-      // }, function (error) {
-      //     // Do something with response error
-      //     return Promise.reject(error);
-      // });
-
+    componentDidMount() {
     Axios.get('https://randomuser.me/api/?format=json&inc=picture&lego')
         .then((response) => {
-
-          // console.log(response.data.results[0].picture);
-
           this.setState({
             picture: response.data.results[0].picture.thumbnail
           })
         })
-        .catch((error) => {
-          console.log(error);
+        .catch((e) => {
+          console.log(e);
         });
 
       Axios.get('http://localhost:23000/api/roles')
           .then((response) => {
-
-              // console.log(response.data.results[0].picture);
               this.setState({
                   roles: response.data
               })
@@ -105,16 +78,18 @@ export default class CardUserActions extends React.Component{
   handleReduce = () => {
     this.setState({expanded: false});
   };
+
   handleSubmit = () => {
 
-  }
+  };
 
   handleDelete = () => {
         Api.deleteUser(this.state.id);
         // this.setState({open: false});
         this.props.handleChangement();
 
-  }
+  };
+
   handleUsername = (e) => {
       this.setState({username: e.target.value}, (then) => {
               setTimeout(() => {
@@ -122,7 +97,7 @@ export default class CardUserActions extends React.Component{
               }, 500);
           }
       );
-  }
+  };
 
     handleRole = (event, index, value) => {
        this.setState({role:value}, (then) => {
@@ -131,20 +106,9 @@ export default class CardUserActions extends React.Component{
            }, 500);
 
        });
-    }
-
-
-  //   handleRole = () => {
-  //
-  //     console.log(this.refs.role.props.value);
-  //
-  //     this.setState({role:this.refs.role.props.value}, (then) => {
-  //         // this.callApi();
-  //     });
-  // }
+    };
 
   callApi = () => {
-      console.log("on appelle l'api", this.state);
       Api.postUser(
           this.state.id,
           this.state.username,
@@ -154,26 +118,25 @@ export default class CardUserActions extends React.Component{
           this.state.email,
           this.state.password,
       ).then((r) => {
-          console.log("update successful ! ",r);
       }).catch((c) => {
           console.log("error create",c);
       });
 
-  }
+  };
 
   handleLastname = (e) => {
       this.setState({lastname: e.target.value}, (then) => {
               this.callApi();
           }
       );
-  }
+  };
 
   handleFirstname = (e) => {
       this.setState({firstname: e.target.value}, (then) => {
               this.callApi();
           }
       );
-  }
+  };
 
 
   handleEmail = (e) => {
@@ -181,7 +144,8 @@ export default class CardUserActions extends React.Component{
               this.callApi();
           }
       );
-  }
+  };
+
   render() {
 
     const iconStyles = {
@@ -210,8 +174,6 @@ export default class CardUserActions extends React.Component{
     return (
 
       <div>
-        {/*{console.log(this.state)}*/}
-
         <div key={this.state.id} style={cardStyles}>
           <Card expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
             <CardHeader
@@ -222,10 +184,6 @@ export default class CardUserActions extends React.Component{
               avatar={this.state.picture}
             />
             <CardText expandable={true}>
-
-              {/*<p>Email : {this.state.email}</p>*/}
-              {/*<p>Pseudo : {this.state.username}</p>*/}
-              {/*demaner card*/}
 
               <form onSubmit={this.handleSubmit}>
                 <TextField

@@ -64,7 +64,6 @@ export default class CreateProject extends React.Component {
         this.props.handleLoader();
 
         if (document.getElementsByName('nbWorker')[0].value.length == -1) {
-            console.log("vide");
         }
 
         Api.createProject(

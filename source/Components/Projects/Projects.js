@@ -51,7 +51,6 @@ export default  class Projects extends AuthorizeComponent {
     };
 
     handleChangement = () => {
-        console.log("call refresh");
         this.getDatas();
     };
 
@@ -75,9 +74,6 @@ export default  class Projects extends AuthorizeComponent {
         if (this.state.projects.length > 0) {
             return (
                 <div className="home-page">
-
-                    {console.log("open", this.state.open)}
-
                     <h1>Gestion des projets</h1>
 
                     {this.state.create}
@@ -93,15 +89,9 @@ export default  class Projects extends AuthorizeComponent {
         else {
             return (
                 <div className="home-page">
-
-                    {console.log("open", this.state.open)}
-
                     <h1>Gestion des projets</h1>
-
                     <RaisedButton label="Créer un projet" onTouchTap={this.handleOpen} primary={true}/>
-
                     {cardProject}
-
                 </div>
             );
         }

@@ -33,11 +33,10 @@ export default class TrelloLists extends React.Component {
             (finish) =>{
                 Axios.get('https://api.trello.com/1/lists/'+this.state.id+'/cards?key='+this.state.api_key+'&token='+this.state.trello_token)
                     .then((response) => {
-                        // console.log(response);
                         this.setState({cards:response.data});
                     })
-                    .catch((error) => {
-                        console.log(error);
+                    .catch((e) => {
+                        console.log(e);
                     });
             });
     }

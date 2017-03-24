@@ -12,8 +12,6 @@ import User from 'material-ui/svg-icons/action/verified-user';
 export default  class Login extends AuthorizeComponent {
     constructor(props) {
         super(props);
-
-        console.log("log", this.props);
     }
 
     state = {

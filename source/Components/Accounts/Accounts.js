@@ -26,13 +26,12 @@ export default  class Accounts extends AuthorizeComponent {
         Axios.defaults.baseURL = 'http://localhost:23000/api';
         Axios.get('/users')
             .then((response) => {
-                console.log("data refreshs");
                 this.setState({
                     users: response.data
                 })
             })
-            .catch((error) => {
-                console.log(error);
+            .catch((e) => {
+                console.log(e);
             });
     }
 
@@ -58,8 +57,6 @@ export default  class Accounts extends AuthorizeComponent {
 
         return (
             <div className="home-page">
-
-                {console.log("open", this.state.open)}
 
                 <h1>Gestion des comptes</h1>
 

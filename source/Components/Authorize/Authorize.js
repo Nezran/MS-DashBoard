@@ -1,4 +1,9 @@
-import React, { PropTypes } from 'react';
+//////////////////////////////////////
+// Authorize component
+// Check if the connected user has the rights to access the ressource
+/////////////////////////////////////
+
+import React, {PropTypes} from 'react';
 import _ from 'lodash';
 
 class AuthorizeComponent extends React.Component {
@@ -11,16 +16,16 @@ class AuthorizeComponent extends React.Component {
     };
 
     GoToHome = () => {
-      router.push("/");
+        router.push("/");
     };
 
-    logOut = () =>{
+    logOut = () => {
         localStorage.clear();
-    }
+    };
 
     authorizeBool = (routeRoles) => {
         return _.indexOf(routeRoles, localStorage.getItem("role")) === -1
-    }
+    };
 
     routeRoles = (routes) => {
         const routeRoles = _.chain(routes)
@@ -29,82 +34,32 @@ class AuthorizeComponent extends React.Component {
             .flattenDeep()
             .value();
         return routeRoles;
-    }
+    };
 
     routesAuthorize = () => {
 
-    }
+    };
 
     componentWillMount() {
-        const { routes } = this.props; // array of routes
-        console.log("r",routes);
-        const { router } = this.context;
-
-        //console.dir(routes);
-
+        const {routes} = this.props; // array of routes
+        const {router} = this.context;
 
         // check if User data available
         const token = localStorage.getItem('token');
 
-
-
-        // if(routes[0].path == "login" && token){
-        //     router.push('/');
-        // }
-
-        //console.log(routes[0].path,router);
-
-        // get all roles available for this route
-        // const routeRoles = _.chain(routes)
-        //     .filter(item => item.authorizedRoles) // access to custom attribute
-        //     .map(item => item.authorizedRoles)
-        //     .flattenDeep()
-        //     .value();
-
-        // const isGuest  = _.chain(routes)
-        //     .filter(item => item.guest) // access to custom attribute
-        //     .flattenDeep()
-        //     .value();
-
-        //console.log("ios",isGuest[0].guest);
-        // console.log("rR",routeRoles);
-
-        if(this.routeRoles(routes)){
+        if (this.routeRoles(routes)) {
 
             if (!token) {
                 // redirect to login if not
-                localStorage.setItem("role","guest");
+                localStorage.setItem("role", "guest");
 
                 router.push('/login');
             }
 
-            if(this.authorizeBool(this.routeRoles(routes))) {
+            if (this.authorizeBool(this.routeRoles(routes))) {
                 router.push('/noAccess');
             }
-
-
-
         }
-
-        // if (!token) {
-        //     // redirect to login if not
-        //     localStorage.setItem("role","guest");
-        //     router.push('/login');
-        // } else if(routeRoles){
-        //     if(_.indexOf(routeRoles, localStorage.getItem("role")) === -1) {
-        //         router.push('/noAccess');
-        //         console.log("false");
-        //     }
-        // } else{
-        //     console.log("true");
-        // }
-
-
-        //console.log(routeRoles);
-        // compare routes with User data
-        //a changer par comparer User.role avec les routesRoles
-
-
     }
 }
 

@@ -121,7 +121,6 @@ export default class CardProjectActions extends React.Component {
             this.state.projectManager.email,
             this.state.projectManager.password,
         ).then((r) => {
-            console.log("update successful ! ", r);
         }).catch((c) => {
             console.log("error create", c);
         });

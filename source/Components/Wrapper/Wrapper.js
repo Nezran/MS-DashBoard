@@ -1,20 +1,19 @@
-import React, {Component} from 'react';
-import AppBar from 'material-ui/AppBar';
+//////////////////////////////////////
+// Wrapper component
+// Generate menu for all the pages, display state of application (logged or not by exemple)
+/////////////////////////////////////
+
+import React from 'react';
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
-import Toggle from 'material-ui/Toggle';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import AuthorizeComponent from '../Authorize/Authorize';
-import { Router, Route, Link, browserHistory } from 'react-router'
+import { Router, Link, } from 'react-router'
 import _ from 'lodash';
-import {GridList, GridTile} from 'material-ui/GridList';
 require('./wrapper.css');
 import Auth from '../Auth/Auth';
-import Subheader from 'material-ui/Subheader';
-import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import CircularProgress from 'material-ui/CircularProgress';
 
 
@@ -30,20 +29,8 @@ export default class Wrapper extends AuthorizeComponent {
 
     }
     componentWillMount(){
-        // console.log("children",this.props.children);
-        // this.setState({logged: Auth.isAuth()});
-        // console.log(Auth);
-
-
-        // console.log("props",this.props.route.isLogged)
-
-        console.log(this.props.children);
     }
     static muiName = 'FlatButton';
-
-    // state = {
-    //     logged: this.props.route.isLogged,
-    // };
 
     state ={
         loader: false,
@@ -51,36 +38,19 @@ export default class Wrapper extends AuthorizeComponent {
     };
 
     handleChange = (logged) => {
-        console.log("logged",logged);
         this.setState({logged: logged});
     };
 
     renderLoader = () => {
-
         this.setState({loader: this.state.loader ? false : true});
-
-    }
+    };
 
     handleSignOut = () =>{
-
-
-        // console.log(this.props);
-        //this.props.route.handler(true);
-        // localStorage.clear();
-
-        // console.dir(Auth.logout());
-
         const func = this.handleChange;
         Auth.logout(func);
-
-
-        //console.log("logout",this.props);
-        // this.props.router.push('/');
-
-    }
+    };
 
     render() {
-
 
       const styles = {
         root: {
@@ -136,13 +106,12 @@ export default class Wrapper extends AuthorizeComponent {
         const Login =  () => {
             const colors =  {
                 color:lightBlue50
-            }
+            };
             return(
                <FlatButton label="Login" href="/login" labelStyle={colors} />
              );
         };
         Logged.muiName = 'IconMenu';
-        console.log("wrapper",this.props);
         const func = this.handleChange;
         const funcLoader = this.renderLoader;
         const childWithProps = React.Children.map(this.props.children, child => {
@@ -155,7 +124,7 @@ export default class Wrapper extends AuthorizeComponent {
       const styleButton = {
           color: purple50,
           fontWeight: 100,
-      }
+      };
         const childmenu = this.props.route.childRoutes.map(child => {
             if(child.name){
                 if(child.authorizedRoles){
@@ -193,8 +162,6 @@ export default class Wrapper extends AuthorizeComponent {
 
         return (
             <div>
-
-                {console.log(Router)}
                 <header className="header">
                     <FlatButton
                         label="MS DashBoard"
@@ -204,8 +171,6 @@ export default class Wrapper extends AuthorizeComponent {
                         {childmenu}
                     </div>
                 </header>
-                {/*<a onClick={this.renderLoader}>toggle loader</a>*/}
-
                 {
                    this.state.loader ?
                        <div className="loader">
@@ -214,14 +179,6 @@ export default class Wrapper extends AuthorizeComponent {
                        :
                        ""
                 }
-
-
-                {console.log("authW",this.state.logged)}
-                {/*<AppBar*/}
-                    {/*title={<Link to={`/`}>MS DashBoard</Link>}*/}
-                    {/*iconElementLeft={<IconButton><NavigationClose /></IconButton>}*/}
-                {/*/>*/}
-                {/*// iconElementRight={this.state.logged ? <Logged /> : <Login />}*/}
                 <div className="content">
                         {childWithProps}
                 </div>

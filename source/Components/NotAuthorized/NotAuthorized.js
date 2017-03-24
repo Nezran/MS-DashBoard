@@ -1,5 +1,9 @@
+//////////////////////////////////////
+// NotAuthorized component
+// Page for the error 401
+/////////////////////////////////////
+
 import React from 'react';
-import { Router, Route, Link, browserHistory } from 'react-router'
 import FlatButton from 'material-ui/FlatButton';
 
 export default  class Accounts extends React.Component {
