@@ -1,16 +1,15 @@
-
-/**
- * Created by Mickael.LACOMBE on 16.03.2017.
- */
+//////////////////////////////////////
+// trello Board component
+// component for 1 board from trello.
+// called from TrelloComponent
+// render trelloLists
+/////////////////////////////////////
 import React from 'react';
 require('../../Api/trello');
-import Axios from 'axios';
-import FlatButton from 'material-ui/FlatButton';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import TrelloLists from './TrelloLists';
 import Lock from 'material-ui/svg-icons/action/lock';
 import People from 'material-ui/svg-icons/social/people';
-
 
 export default class TrelloBoards extends React.Component {
 
@@ -73,16 +72,9 @@ export default class TrelloBoards extends React.Component {
         const cardTitle = () =>  {
             return(
                 <span style={styleSpan}>
-                    {
-                        this.state.name
-                    }
-
-                    {
-                        this.state.params.permissionLevel == "private" ?  <Lock style={styles} /> : ""
-                    }
-                    {
-                        this.state.params.permissionLevel == "org" ? <People style={styles} ></People> : ""
-                    }
+                    {this.state.name}
+                    {this.state.params.permissionLevel == "private" ?  <Lock style={styles} /> : ""}
+                    {this.state.params.permissionLevel == "org" ? <People style={styles} ></People> : ""}
                 </span>
             )
         };

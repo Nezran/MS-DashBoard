@@ -1,18 +1,13 @@
-// Index du projet
-//
+// Index off project
+// Render router Trougth material-ui react
 import React from 'react';
 import ReactDOM from 'react-dom';
 import RouterComponent from './RouterComponent/RouterComponent';
-
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
-
-/* Material */
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {fade} from 'material-ui/utils/colorManipulator';
-
 import {
     green500, cyan700,
     brown500,
@@ -50,7 +45,7 @@ const App = function () {
     });
 
 
-    // Point d'entrée de l'application, on passe le routeyr dans le template
+    // Point d'entrée de l'application, on passe le router dans le template
     return (
         <div>
             <MuiThemeProvider muiTheme={muiTheme}>

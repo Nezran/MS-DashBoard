@@ -1,20 +1,10 @@
-/**
- * Created by Mickael.LACOMBE on 17.03.2017.
- */
-/**
- * Created by Mickael.LACOMBE on 17.03.2017.
- */
-/**
- * Created by Mickael.LACOMBE on 17.03.2017.
- */
-/**
- * Created by Mickael.LACOMBE on 16.03.2017.
- */
+//////////////////////////////////////
+// trello Cards component
+// component for 1 cards from trello.
+// called from TrelloLists
+// render card of trello
+/////////////////////////////////////
 import React from 'react';
-// import TrelloAPI from'../../trello';
-// var test = require('../../trello');
-import Axios from 'axios';
-import FlatButton from 'material-ui/FlatButton';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 
 
@@ -46,10 +36,8 @@ export default class TrelloCards extends React.Component {
                     showExpandableButton={false}
                 />
                 <CardText expandable={false}>
-
                 </CardText>
             </Card>
         )
     }
-
 }

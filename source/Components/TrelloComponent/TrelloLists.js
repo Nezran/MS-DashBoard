@@ -1,20 +1,15 @@
-/**
- * Created by Mickael.LACOMBE on 17.03.2017.
- */
-/**
- * Created by Mickael.LACOMBE on 17.03.2017.
- */
-/**
- * Created by Mickael.LACOMBE on 16.03.2017.
- */
+//////////////////////////////////////
+// trello lists component
+// component for 1 lists from trello.
+// called from trelloBoard
+// render trelloCards
+/////////////////////////////////////
 import React from 'react';
 import Axios from 'axios';
-import FlatButton from 'material-ui/FlatButton';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import TrelloCards from './TrelloCards';
 
 export default class TrelloLists extends React.Component {
-    tes = 9;
     constructor(props) {
         super(props);
     }

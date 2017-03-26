@@ -1,13 +1,12 @@
-/**
- * Created by Mickael.LACOMBE on 16.03.2017.
- */
+//////////////////////////////////////
+// trello Component
+// component for initialize trello
+// called from dashboard or trello router
+// get All the data like board, token id, etc
+/////////////////////////////////////
 import React from 'react';
-// import TrelloAPI from'../../trello';
 require('../../Api/trello');
-// var test = require('../../trello');
 import Axios from 'axios';
-import FlatButton from 'material-ui/FlatButton';
-import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import TrelloBoards from './TrelloBoards';
 import RaisedButton from 'material-ui/RaisedButton';
 
@@ -82,10 +81,7 @@ export default class TrelloComponent extends React.Component{
             expiration: "never",
             persist: true,
             success: (e) => {
-
                 var token = Trello.token();
-                // window.location.replace("/auth?token=" + token);
-
                 Axios.get('https://api.trello.com/1/tokens/'+token+'?key=ff9ada8463a83c083553e753520ffbec&token='+token)
                     .then((response) => {
                         this.setState({trello_connected:true,trello_response_token:response.data,trello_token:token, trello_user:response.data.idMember}, (e) => {
@@ -97,12 +93,10 @@ export default class TrelloComponent extends React.Component{
                     });
             },
             scope: { write: false, read: true },
-
         });
     }
 
     trelloDisconnect = () =>{
-
         Axios.delete('https://api.trello.com/1/tokens/'+this.state.trello_token+'?key=ff9ada8463a83c083553e753520ffbec&token='+this.state.trello_token)
             .then((response) => {
                 localStorage.removeItem("trello_token","exp");
@@ -114,8 +108,6 @@ export default class TrelloComponent extends React.Component{
             .catch((e) => {
                 console.log(e);
             });
-
-
     }
 
     render(){
@@ -139,11 +131,7 @@ export default class TrelloComponent extends React.Component{
             return(
                 <div>
                     <h1>Trello</h1>
-
-                    <p>
-                        Connecté en tant que : {this.state.trello_user_data.username}
-                        <img src={"https://trello-avatars.s3.amazonaws.com/"+this.state.trello_user_data.avatarHash+"/30.png"} />
-                    </p>
+                    <p>Connecté en tant que : {this.state.trello_user_data.username}<img src={"https://trello-avatars.s3.amazonaws.com/"+this.state.trello_user_data.avatarHash+"/30.png"} /></p>
                     <RaisedButton  label="Déconnexion" onClick={this.trelloDisconnect} primary={true} />
                     <p></p>
                     <span style={styles.wrapper}>

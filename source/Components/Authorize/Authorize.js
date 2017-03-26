@@ -15,14 +15,6 @@ class AuthorizeComponent extends React.Component {
         router: PropTypes.object.isRequired
     };
 
-    // GoToHome = () => {
-    //     router.push("/");
-    // };
-    //
-    // logOut = () => {
-    //     localStorage.clear();
-    // };
-
     // if route role ask is egal to user role from localstorage
     authorizeBool = (routeRoles) => {
         return _.indexOf(routeRoles, localStorage.getItem("role")) === -1
